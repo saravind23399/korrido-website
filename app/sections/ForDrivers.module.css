@@ -1,0 +1,181 @@
+.section {
+  padding: 8rem 0;
+  background-color: var(--baby-blue);
+  position: relative;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+/* Text Side */
+.badge {
+  display: inline-block;
+  background-color: var(--background);
+  color: var(--text-dark);
+  font-weight: 800;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.benefitCard {
+  text-align: flex-start;
+  padding: 1.5rem;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.benefitCard h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.benefitCard p {
+  color: var(--text-dark);
+  opacity: 0.8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Visual Side */
+.visualSide {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.driverMockup {
+  position: relative;
+  width: 350px;
+  height: 400px;
+}
+
+.driverAvatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  z-index: 2;
+  animation: float 4s ease-in-out infinite;
+}
+
+.earningsCard {
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0;
+  border: 2px solid var(--text-dark);
+  box-shadow: 8px 8px 0px var(--text-dark);
+  z-index: 3;
+  width: 220px;
+}
+
+.earningsTitle {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.earningsAmount {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #27ae60;
+  margin-bottom: 1rem;
+}
+
+.earningsBar {
+  height: 8px;
+  background: var(--cream);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.earningsFill {
+  height: 100%;
+  background: #27ae60;
+  width: 0%;
+}
+
+.section:hover .earningsFill {
+  animation: fill-bar 1.5s 0.2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  width: 80%;
+}
+
+.behindSeatScreen {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 140px;
+  height: 200px;
+  background: #ffffff;
+  border: 4px solid var(--text-dark);
+  border-radius: 0;
+  box-shadow: 8px 8px 0px var(--text-dark);
+  z-index: 1;
+  opacity: 0.9;
+  transform: perspective(400px) rotateY(-15deg);
+}
+
+.behindSeatScreen::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 40px;
+  background: var(--peach);
+  border-radius: var(--radius-sm);
+  animation: pulse-glow 3s infinite;
+}
+
+@keyframes fill-bar {
+  from { width: 0%; }
+}
+
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .visualSide {
+    order: -1;
+  }
+}

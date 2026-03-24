@@ -1,0 +1,18 @@
+.card {
+  background-color: var(--cream);
+  border-radius: 0;
+  padding: 2rem;
+  border: 2px solid var(--text-dark);
+  box-shadow: 6px 6px 0px var(--text-dark);
+  transition: all 0.1s ease;
+}
+
+.card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 10px 10px 0px var(--text-dark);
+}
+
+.peach { background-color: var(--peach); }
+.mint { background-color: var(--mint); }
+.lavender { background-color: var(--lavender); }
+.blue { background-color: var(--baby-blue); }

@@ -1,0 +1,125 @@
+.section {
+  padding: 8rem 0;
+  background-color: #ffffff;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+}
+
+.stepsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+/* Connecting line */
+.stepsContainer::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--peach) 0%, var(--mint) 50%, var(--lavender) 100%);
+  z-index: 0;
+  opacity: 0.5;
+  border-radius: var(--radius-pill);
+}
+
+.stepWrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.stepCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.stepCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.stepCard p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.iconWrapper {
+  width: 80px;
+  height: 80px;
+  background-color: var(--background);
+  border-radius: 0;
+  border: 2px solid var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 6px 6px 0px var(--text-dark);
+  position: relative;
+}
+
+.stepNumber {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 4rem;
+  font-weight: 900;
+  opacity: 0.1;
+  color: var(--text-dark);
+  line-height: 1;
+}
+
+/* Icon Animations */
+.iconGlow {
+  animation: pulse-glow 2s infinite;
+  border-radius: 0;
+}
+
+.iconSwipe {
+  animation: wiggle 3s infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-5px) rotate(-10deg); }
+  75% { transform: translateX(5px) rotate(10deg); }
+}
+
+.iconBounce {
+  animation: bounce 2s infinite;
+}
+
+@media (max-width: 992px) {
+  .stepsContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .stepsContainer::before {
+    display: none;
+  }
+}
