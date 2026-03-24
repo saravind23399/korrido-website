@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './About.module.css';
 
 export const metadata = {
@@ -10,7 +11,7 @@ export default function AboutUs() {
   return (
     <div className={styles.pageWrapper}>
       <div className={`container ${styles.aboutContainer}`}>
-        
+
         {/* HERO SECTION */}
         <header className={styles.heroSection}>
           <h1 className={styles.massiveTitle}>ABOUT KORRIDO</h1>
@@ -69,22 +70,21 @@ export default function AboutUs() {
           </p>
 
           <div className={styles.foundersGrid}>
-            
+
             {/* Aravind */}
             <div className={styles.founderBlock}>
               <div className={styles.founderVisual}>
-                <img src="/images/founders/aravind.jpeg" alt="Aravind Srinivasan" className={styles.founderImage} />
+                <Image src="/images/founders/aravind.jpg" alt="Aravind Srinivasan" width={400} height={400} className={styles.founderImage} />
               </div>
               <div className={styles.founderData}>
-                <h3 className={styles.founderName}>ARAVIND SRINIVASAN</h3>
+                <h3 className={styles.founderName}>ARAVIND S</h3>
                 <div className={styles.founderRole}>CO-FOUNDER & TECHNICAL LEAD</div>
                 <div className={styles.founderBio}>
-                  <p>Engineering Leader & Program Manager scaling innovative products. Thrives in ambiguous environments, moving seamlessly from concept to execution.</p>
+                  <p>Engineering Leader. Moving seamlessly from concept to execution.</p>
                   <ul className={styles.sharpList}>
                     <li><strong>DEEP EXPERTISE:</strong> Background spans early-stage startups and tackling complex domains like compliance-tech.</li>
                     <li><strong>LEADERSHIP:</strong> Managed cross-functional delivery across engineering, design, QA, and business teams.</li>
                     <li><strong>TECHNICAL STRATEGY:</strong> Highly skilled in driving scalable system architecture without losing sight of the big picture.</li>
-                    <li><strong>SECURITY:</strong> Championed rigorous compliance and security certifications securely from end-to-end.</li>
                   </ul>
                 </div>
               </div>
@@ -93,18 +93,18 @@ export default function AboutUs() {
             {/* Vishal */}
             <div className={styles.founderBlock}>
               <div className={styles.founderVisual}>
-                <img src="/images/founders/vishal.jpeg" alt="Vishal Prathush" className={styles.founderImage} />
+                <Image src="/images/founders/vishal.JPG" alt="Vishal Prathush" width={400} height={400} className={styles.founderImage} />
               </div>
               <div className={styles.founderData}>
                 <h3 className={styles.founderName}>VISHAL PRATHUSH</h3>
-                <div className={styles.founderRole}>CO-FOUNDER & PRODUCT STRATEGY</div>
+                <div className={styles.founderRole}>CO-FOUNDER & PRODUCT</div>
                 <div className={styles.founderBio}>
-                  <p>Product & Ops Strategist building at the intersection of product, compliance, and operations. Structured thinking meets execution.</p>
+                  <p>Product & Ops Strategist building at the intersection of product, strategy and operations. Structured thinking meets execution.</p>
                   <ul className={styles.sharpList}>
                     <li><strong>INDUSTRY SCALE:</strong> Expertise from Stripe, PwC, Amazon.</li>
-                    <li><strong>RISK & COMPLIANCE:</strong> Deep foundation in navigating complex regulatory environments and scaling operational workflows.</li>
+                    <li><strong>RISK & COMPLIANCE:</strong> Deep foundation in scaling operational workflows.</li>
                     <li><strong>ENTREPRENEURIAL:</strong> Co-founded ventures from zero to one and launched products to market.</li>
-                    <li><strong>FIRST PRINCIPLES:</strong> Product leadership bridging go-to-market strategy and engineering.</li>
+                    <li><strong>FIRST PRINCIPLES:</strong> Product leadership bridging go-to-market strategy and operations.</li>
                   </ul>
                 </div>
               </div>
