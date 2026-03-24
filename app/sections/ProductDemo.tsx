@@ -12,14 +12,14 @@ export const ProductDemo = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsExpanding(true);
-      
+
       setTimeout(() => {
         setIsExpanding(false);
         setActiveIndex((prev) => (prev + 1) % 3);
       }, 3000); // 3 seconds expanded state
-      
+
     }, 5000); // 5 seconds total cycle
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -30,7 +30,7 @@ export const ProductDemo = () => {
           <h2 className={styles.title}>Experience It Yourself</h2>
           <p className={styles.subtitle}>Instant gratification, built into your journey.</p>
         </AnimatedSection>
-        
+
         <AnimatedSection delay={200} className={styles.demoWrapper}>
           <div className={styles.tabletMockup}>
             <div className={styles.tabletScreen}>
@@ -54,10 +54,10 @@ export const ProductDemo = () => {
                     <div className={styles.demoCardBody}>
                       <div className={styles.demoCardTitle}>Bisleri Mineral Water</div>
                       <div className={styles.demoCardText}>Chilled small bottle to stay hydrated on the go.</div>
-                      <div className={styles.demoCardBtn}>Buy for ₹40</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹10</div>
                     </div>
                   </div>
-                  
+
                   <div className={`${styles.demoCard} ${activeIndex === 1 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 1 ? styles.demoCardHidden : ''}`}>
                     <div className={styles.demoCardImg}>
                       <img src="/images/boat-cable.png" alt="boAt Type-C Cable" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
