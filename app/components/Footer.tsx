@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import Link from 'next/link';
 
 export const Footer = () => {
   return (
@@ -12,15 +13,15 @@ export const Footer = () => {
         <div className={styles.links}>
           <div className={styles.linkGroup}>
             <h4>Platform</h4>
-            <a href="#brands">For Brands</a>
-            <a href="#riders">For Riders</a>
-            <a href="#drivers">For Drivers</a>
+            <a href="/#brands">For Brands</a>
+            <a href="/#riders">For Riders</a>
+            <a href="/#drivers">For Drivers</a>
           </div>
           <div className={styles.linkGroup}>
             <h4>Company</h4>
-            <a href="#">About Us</a>
-            <a href="#">Careers</a>
-            <a href="#">Contact</a>
+            <Link href="/about">About Us</Link>
+            <Link href="#">Careers</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
       </div>

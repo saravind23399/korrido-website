@@ -1,0 +1,111 @@
+.pageWrapper {
+  padding: 120px 0;
+  min-height: calc(100vh - 80px);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--foreground);
+  padding-bottom: 24px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.lead {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #a0a0a0);
+}
+
+.emailBox {
+  margin-top: 24px;
+  background: #111;
+  padding: 40px;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.2s ease;
+}
+
+.emailBox:hover {
+  background: #1a1a1a;
+}
+
+.emailLabel {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+.emailLink {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.emailLink:hover {
+  text-decoration: underline;
+}
+
+.visualPanel {
+  display: flex;
+  align-items: stretch;
+}
+
+.decorativeBlock {
+  flex: 1;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.gridPattern {
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+    linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+  opacity: 0.5;
+}
+
+@media (max-width: 992px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
