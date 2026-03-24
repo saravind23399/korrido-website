@@ -1,4 +1,8 @@
-# Gemini Project Instructions
+---
+trigger: always_on
+---
+
+# Sitemap creation Instructions
 
 - On every task affecting pages, routes, or content, the sitemap MUST be updated.
 - The base URL is https://korrido.com
