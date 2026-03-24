@@ -20,7 +20,6 @@ export const Footer = () => {
           <div className={styles.linkGroup}>
             <h4>Company</h4>
             <Link href="/about">About Us</Link>
-            <Link href="#">Careers</Link>
             <Link href="/contact">Contact</Link>
           </div>
         </div>
