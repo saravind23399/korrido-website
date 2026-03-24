@@ -1,0 +1,237 @@
+.pageWrapper {
+  padding: 4rem 1rem;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  background: var(--surface-container-low);
+  border: 4px solid var(--outline);
+  box-shadow: 12px 12px 0px var(--outline);
+}
+
+.sidebar {
+  padding: 3rem 2rem;
+  background: var(--surface-container-highest);
+  border-right: 4px solid var(--outline);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mainPanel {
+  padding: 3rem 2.5rem;
+  background: var(--surface-container-low);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  border: 3px solid var(--outline);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.detailRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--on-surface-variant);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.detailIcon {
+  color: var(--secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  margin-bottom: 1.5rem;
+}
+
+/* Calendar Grid */
+.calendarMonth {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  margin-bottom: 1rem;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.dayHeader {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.dayBtn {
+  aspect-ratio: 1;
+  background: var(--surface);
+  border: 2px solid var(--outline);
+  color: var(--on-surface);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dayBtn:hover:not(:disabled) {
+  background: var(--surface-container-highest);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--outline);
+}
+
+.dayBtn.active {
+  background: var(--primary);
+  color: var(--on-primary-fixed);
+  border: 2px solid var(--outline);
+}
+
+.dayBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Split View for Timeslots */
+.splitView {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 2rem;
+}
+
+.timeSlots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.timeBtn {
+  padding: 1rem;
+  background: var(--surface);
+  border: 2px solid var(--outline);
+  color: var(--secondary);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.timeBtn:hover {
+  background: rgba(0, 238, 252, 0.1);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--outline);
+}
+
+.timeRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.timeBtnActive {
+  flex: 1;
+  background: var(--secondary);
+  color: var(--surface);
+  border-color: var(--outline);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--outline);
+}
+
+.nextBtn {
+  background: var(--primary);
+  color: var(--on-primary-fixed);
+  border: 2px solid var(--outline);
+  font-weight: 800;
+  padding: 0 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.formLabel {
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.formInput {
+  padding: 1rem;
+  background: var(--surface-container-highest);
+  border: 2px solid var(--outline);
+  color: var(--on-surface);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  border-radius: 0px;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--secondary);
+}
+
+.successPanel {
+  text-align: center;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 4px solid var(--outline);
+  }
+  .splitView {
+    grid-template-columns: 1fr;
+  }
+}

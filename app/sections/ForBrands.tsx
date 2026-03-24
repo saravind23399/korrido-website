@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ForBrands.module.css';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { Button } from '../components/Button';
+import Link from 'next/link';
 
 export const ForBrands = () => {
   return (
@@ -69,7 +70,9 @@ export const ForBrands = () => {
           </ul>
           
           <div className={styles.cta}>
-            <Button variant="primary">Book Ad Slots</Button>
+            <Link href="/schedule" style={{ textDecoration: 'none' }}>
+              <Button variant="primary">Book Ad Slots</Button>
+            </Link>
           </div>
         </AnimatedSection>
       </div>

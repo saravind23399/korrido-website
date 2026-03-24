@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import { Button } from './Button';
+import Link from 'next/link';
 
 export const Navbar = () => {
   return (
@@ -10,13 +11,15 @@ export const Navbar = () => {
           <a href="/">Korrido</a>
         </div>
         <div className={styles.navLinks}>
-          <a href="#how-it-works" className={styles.link}>How It Works</a>
-          <a href="#brands" className={styles.link}>For Brands</a>
-          <a href="#riders" className={styles.link}>For Riders</a>
-          <a href="#drivers" className={styles.link}>For Drivers</a>
+          <a href="/#how-it-works" className={styles.link}>How It Works</a>
+          <a href="/#brands" className={styles.link}>For Brands</a>
+          <a href="/#riders" className={styles.link}>For Riders</a>
+          <a href="/#drivers" className={styles.link}>For Drivers</a>
         </div>
         <div className={styles.navAction}>
-          <Button variant="primary">Partner With Us</Button>
+          <Link href="/schedule" style={{ textDecoration: 'none' }}>
+            <Button variant="primary">Partner With Us</Button>
+          </Link>
         </div>
       </div>
     </nav>

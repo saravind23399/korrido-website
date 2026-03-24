@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './FinalCTA.module.css';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { Button } from '../components/Button';
+import Link from 'next/link';
 
 export const FinalCTA = () => {
   return (
@@ -13,8 +14,12 @@ export const FinalCTA = () => {
             Join the smart mobility revolution. Whether you want to reach premium audiences or turn your fleet into a revenue stream, Korrido is your partner.
           </p>
           <div className={styles.buttonGroup}>
-            <Button variant="pulse">Start Advertising</Button>
-            <Button variant="primary">Partner With Korrido</Button>
+            <Link href="/schedule" style={{ textDecoration: 'none' }}>
+              <Button variant="pulse">Start Advertising</Button>
+            </Link>
+            <Link href="/schedule" style={{ textDecoration: 'none' }}>
+              <Button variant="primary">Partner With Korrido</Button>
+            </Link>
           </div>
         </AnimatedSection>
       </div>

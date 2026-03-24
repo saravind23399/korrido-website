@@ -59,24 +59,26 @@ export const ProductDemo = () => {
                   </div>
                   
                   <div className={`${styles.demoCard} ${activeIndex === 1 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 1 ? styles.demoCardHidden : ''}`}>
-                    <div className={styles.demoCardImg} style={{ background: 'var(--primary)' }}>
+                    <div className={styles.demoCardImg}>
+                      <img src="/images/boat-cable.png" alt="boAt Type-C Cable" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       {activeIndex === 1 && isExpanding && <div className={styles.ripple}></div>}
                     </div>
                     <div className={styles.demoCardBody}>
-                      <div className={styles.demoCardTitle}>Charging Cable</div>
-                      <div className={styles.demoCardText}>Type-C fast charging cable.</div>
-                      <div className={styles.demoCardBtn}>Buy for ₹250</div>
+                      <div className={styles.demoCardTitle}>boAt Type-C Tough Cable</div>
+                      <div className={styles.demoCardText}>Rugged 1.5m braided fast charging cable.</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹299</div>
                     </div>
                   </div>
 
                   <div className={`${styles.demoCard} ${activeIndex === 2 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 2 ? styles.demoCardHidden : ''}`}>
-                    <div className={styles.demoCardImg} style={{ background: 'var(--secondary)' }}>
+                    <div className={styles.demoCardImg}>
+                      <img src="/images/lays-chips.png" alt="Lay's Magic Masala" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       {activeIndex === 2 && isExpanding && <div className={styles.ripple}></div>}
                     </div>
                     <div className={styles.demoCardBody}>
-                      <div className={styles.demoCardTitle}>Local Snacks</div>
-                      <div className={styles.demoCardText}>Curated selection of premium chips.</div>
-                      <div className={styles.demoCardBtn}>Buy for ₹80</div>
+                      <div className={styles.demoCardTitle}>Lay's India's Magic Masala</div>
+                      <div className={styles.demoCardText}>Classic spicy potato chips for the ride. 50g.</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹20</div>
                     </div>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import styles from './Hero.module.css';
 import { Button } from '../components/Button';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { CupSoda, Cable, Cookie } from 'lucide-react';
+import Link from 'next/link';
 
 export const Hero = () => {
   return (
@@ -24,8 +25,12 @@ export const Hero = () => {
             Turn idle ride time into instant discovery and purchases. Water, snacks, and essentials—just a tap away.
           </p>
           <div className={styles.ctaGroup}>
-            <Button variant="pulse">Partner With Us</Button>
-            <Button variant="secondary">See How It Works</Button>
+            <Link href="/schedule" style={{ textDecoration: 'none' }}>
+              <Button variant="pulse">Partner With Us</Button>
+            </Link>
+            <Link href="#how-it-works" style={{ textDecoration: 'none' }}>
+              <Button variant="secondary">See How It Works</Button>
+            </Link>
           </div>
         </AnimatedSection>
 
