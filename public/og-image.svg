@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Deep Space Dark Background -->
+  <rect width="1200" height="630" fill="#000000" />
+  
+  <!-- Brutalist Grid Lines -->
+  <line x1="100" y1="0" x2="100" y2="630" stroke="#333333" stroke-width="2" />
+  <line x1="0" y1="150" x2="1200" y2="150" stroke="#333333" stroke-width="2" />
+  <line x1="0" y1="480" x2="1200" y2="480" stroke="#333333" stroke-width="2" />
+  
+  <!-- Brutalist Geometric Accents -->
+  <rect x="850" y="100" width="250" height="250" fill="#FF3366" />
+  <rect x="880" y="130" width="250" height="250" fill="none" stroke="#00FFCC" stroke-width="8" />
+  
+  <!-- Brand Title -->
+  <text x="100" y="320" font-family="monospace, sans-serif" font-size="200" font-weight="900" fill="#FFFFFF" letter-spacing="-5">
+    KORRIDO
+  </text>
+  
+  <!-- Tagline block -->
+  <rect x="100" y="380" width="550" height="80" fill="#00FFCC" />
+  <text x="130" y="435" font-family="monospace, sans-serif" font-size="45" font-weight="bold" fill="#000000">
+    THE IN-CAB EXPERIENCE
+  </text>
+  
+  <!-- Border framing -->
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#FF3366" stroke-width="24" />
+</svg>
