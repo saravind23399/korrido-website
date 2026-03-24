@@ -1,10 +1,6 @@
 .section {
-  padding: 8rem 0;
-  background-color: var(--background);
-  background-image: radial-gradient(var(--text-light) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: -19px -19px;
-  opacity: 0.95;
+  padding: 5.5rem 0;
+  background-color: var(--surface);
 }
 
 .header {
@@ -16,12 +12,12 @@
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  color: var(--text-dark);
+  color: var(--on-surface);
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: var(--text-light);
+  color: var(--on-surface-variant);
 }
 
 .grid {
@@ -32,9 +28,9 @@
 
 .whyCard {
   height: 100%;
-  border: 4px solid var(--text-dark);
-  box-shadow: 8px 8px 0px var(--text-dark);
-  border-radius: var(--radius-lg);
+  border: 2px solid var(--outline);
+  box-shadow: 4px 4px 0px var(--on-background);
+  border-radius: 0px;
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease;
@@ -42,7 +38,7 @@
 
 .whyCard:hover {
   transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0px var(--text-dark);
+  box-shadow: 8px 8px 0px var(--on-background);
 }
 
 .icon {
@@ -54,11 +50,11 @@
   font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  color: var(--text-dark);
+  color: var(--on-surface);
 }
 
 .whyCard p {
-  color: var(--text-dark);
+  color: var(--on-surface-variant);
   line-height: 1.6;
   font-weight: 500;
 }

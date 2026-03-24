@@ -48,23 +48,23 @@ export const ForBrands = () => {
         
         <AnimatedSection className={styles.textSide} delay={200}>
           <span className={styles.badge}>For Brands</span>
-          <h2 className={styles.title}>Your Message, Captivated Audience.</h2>
+          <h2 className={styles.title}>Your Message, Experienced.</h2>
           <p className={styles.subtitle}>
-            Reach passengers in a premium, distraction-free environment. Turn idle commute time into measurable engagement and real-time conversions.
+            Brands don’t just get seen—they get experienced. Deliver high-intent engagement in a captive environment, driving measurable outcomes instead of just impressions.
           </p>
           
           <ul className={styles.features}>
             <li>
               <span className={styles.check}>✓</span>
-              <strong>Targeted Reach:</strong> Connect with high-intent riders in premium cabs.
+              <strong>Captive Audience:</strong> Engage passengers in a uniquely distraction-free environment.
             </li>
             <li>
               <span className={styles.check}>✓</span>
-              <strong>High Attention:</strong> Zero screen competition during the ride.
+              <strong>Seamless Action:</strong> Natural engagement that seamlessly leads to the next step: action.
             </li>
             <li>
               <span className={styles.check}>✓</span>
-              <strong>Measurable Impact:</strong> Track engagement and conversions in real-time.
+              <strong>Measurable Outcomes:</strong> Drive real results—not just fleeting impressions.
             </li>
           </ul>
           

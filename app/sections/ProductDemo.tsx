@@ -28,7 +28,7 @@ export const ProductDemo = () => {
       <div className={`container ${styles.container}`}>
         <AnimatedSection className={styles.header}>
           <h2 className={styles.title}>Experience It Yourself</h2>
-          <p className={styles.subtitle}>A glimpse into the passenger interface.</p>
+          <p className={styles.subtitle}>Instant gratification, built into your journey.</p>
         </AnimatedSection>
         
         <AnimatedSection delay={200} className={styles.demoWrapper}>
@@ -48,34 +48,35 @@ export const ProductDemo = () => {
                 <div className={styles.demoContent}>
                   <div className={`${styles.demoCard} ${activeIndex === 0 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 0 ? styles.demoCardHidden : ''}`}>
                     <div className={styles.demoCardImg}>
+                      <img src="/images/water-bottle.png" alt="Chilled Bisleri Water" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       {activeIndex === 0 && isExpanding && <div className={styles.ripple}></div>}
                     </div>
                     <div className={styles.demoCardBody}>
-                      <div className={styles.demoCardTitle}></div>
-                      <div className={styles.demoCardText}></div>
-                      <div className={styles.demoCardBtn}>Buy Now</div>
+                      <div className={styles.demoCardTitle}>Bisleri Mineral Water</div>
+                      <div className={styles.demoCardText}>Chilled small bottle to stay hydrated on the go.</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹40</div>
                     </div>
                   </div>
                   
                   <div className={`${styles.demoCard} ${activeIndex === 1 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 1 ? styles.demoCardHidden : ''}`}>
-                    <div className={styles.demoCardImg} style={{ background: 'var(--mint)' }}>
+                    <div className={styles.demoCardImg} style={{ background: 'var(--primary)' }}>
                       {activeIndex === 1 && isExpanding && <div className={styles.ripple}></div>}
                     </div>
                     <div className={styles.demoCardBody}>
-                      <div className={styles.demoCardTitle}></div>
-                      <div className={styles.demoCardText}></div>
-                      <div className={styles.demoCardBtn}>Claim Offer</div>
+                      <div className={styles.demoCardTitle}>Charging Cable</div>
+                      <div className={styles.demoCardText}>Type-C fast charging cable.</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹250</div>
                     </div>
                   </div>
 
                   <div className={`${styles.demoCard} ${activeIndex === 2 && isExpanding ? styles.demoCardExpanded : ''} ${activeIndex !== 2 ? styles.demoCardHidden : ''}`}>
-                    <div className={styles.demoCardImg} style={{ background: 'var(--lavender)' }}>
+                    <div className={styles.demoCardImg} style={{ background: 'var(--secondary)' }}>
                       {activeIndex === 2 && isExpanding && <div className={styles.ripple}></div>}
                     </div>
                     <div className={styles.demoCardBody}>
-                      <div className={styles.demoCardTitle}></div>
-                      <div className={styles.demoCardText}></div>
-                      <div className={styles.demoCardBtn}>Learn More</div>
+                      <div className={styles.demoCardTitle}>Local Snacks</div>
+                      <div className={styles.demoCardText}>Curated selection of premium chips.</div>
+                      <div className={styles.demoCardBtn}>Buy for ₹80</div>
                     </div>
                   </div>
                 </div>

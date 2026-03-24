@@ -1,93 +1,173 @@
-```markdown
-# Design System Document: Urban Retro-Pop Editorial
+# Design System Strategy: Night Metropolis / Kinetic Pop
 
-## 1. Overview & Creative North Star: "The Analog Pulse"
 
-This design system is built to bridge the gap between high-energy urban movement and the tactile nostalgia of mid-century print media. Our Creative North Star is **"The Analog Pulse."** 
 
-We are moving away from the sterile, "app-like" interfaces of the last decade. Instead, we are creating a digital environment that feels like a premium, weathered broadsheet or a high-end pop-art gallery. The layout should feel intentional and curated, utilizing **intentional asymmetry**—such as offset imagery and overlapping typography—to break the rigid digital grid. By layering distressed textures with sophisticated serif typography, we evoke a sense of "Sophisticated Energy" that feels both timeless and urgent.
+## 1. Overview & Creative North Star
+
+The Creative North Star for this design system is **"The Neon Brutalist."**
+
+
+
+This is not a standard "safe" dark mode. It is a high-contrast, high-energy editorial experience that captures the vibration of a 1960s metropolitan night. We are blending the raw, mechanical power of Kinetic Art with the unapologetic boldness of Pop Art.
+
+
+
+By utilizing **Space Grotesk** as a structural foundation and framing elements with heavy, definitive strokes, we move away from the "soft" web and toward a "printed" urban aesthetic. The design breaks the grid through intentional layering: elements should feel like posters pasted on a dark city wall—overlapping, staggered, and buzzing with the energy of the `primary` yellow signals.
+
+
 
 ---
 
-## 2. Colors: The Burnt Palette
 
-Our palette is inspired by sun-faded street posters and vintage transit maps. It is designed to feel warm, organic, and deeply grounded.
 
-### Color Tokens
-*   **Primary (`#a43716`):** A deep burnt orange. Use this for high-energy actions and brand moments.
-*   **Secondary (`#7c5800`):** A mustard gold used for secondary emphasis.
-*   **Tertiary (`#256567`):** A muted teal that provides a sophisticated cooling contrast to the warmer tones.
-*   **Surface (`#fff8ef`):** A faded cream, acting as our weathered "paper" base.
+## 2. Colors: The High-Contrast Pulse
 
-### The "No-Line" Rule
-**Explicit Instruction:** Do not use 1px solid borders to define sections. Boundaries must be created through background shifts. For instance, a `surface-container-low` (`#fcf3de`) sidebar should sit flush against a `surface` (`#fff8ef`) main content area. The eye should perceive the change in depth through color, not a "stroke."
+The palette is built on a foundation of absolute darkness (`surface` #0e0e0e) to allow the "urban signals" of `primary` yellow and `secondary` cyan to vibrate.
+
+
+
+### The "No-Line" Rule (Internal)
+
+While this system uses heavy external outlines for character, **prohibit 1px silver/grey dividers for internal sectioning.** Interior boundaries must be defined by shifts in surface tiers (e.g., a `surface-container-high` card resting on a `surface` background).
+
+
 
 ### Surface Hierarchy & Nesting
-Treat the UI as a physical stack of cardstock. 
-*   **Layer 0:** `surface` (The base canvas).
-*   **Layer 1:** `surface-container-low` (Nested secondary info).
-*   **Layer 2:** `surface-container-highest` (High-priority interactive modules).
 
-### Signature Textures & Gradients
-To avoid a flat "vector" look, use subtle linear gradients transitioning from `primary` (`#a43716`) to `primary-container` (`#c54f2c`) on hero buttons. Integrate halftone patterns (opacity 5-8%) over these gradients to mimic 1960s silk-screen printing.
+Treat the UI as a physical stack of asphalt and neon:
 
----
+* **Base:** `surface` (#0e0e0e) is your pavement.
 
-## 3. Typography: Editorial Authority
+* **Secondary Level:** `surface-container-low` (#131313) for large layout blocks.
 
-We use a high-contrast pairing: **Newsreader** (a classic, sturdy serif) for storytelling and **Manrope** (a humanist sans-serif) for functional data and utility.
+* **Interactive Level:** `surface-container-highest` (#262626) for cards that need to pop.
 
-*   **Display-LG (Newsreader, 3.5rem):** Reserved for hero headlines. Use tight letter-spacing (-0.02em) to give it a "printed" weight.
-*   **Headline-MD (Newsreader, 1.75rem):** Use for section headers. Don't be afraid to overlap these slightly with imagery for an editorial feel.
-*   **Title-MD (Manrope, 1.125rem):** The primary navigational and component-level font.
-*   **Body-LG (Manrope, 1rem):** Optimized for readability with a generous 1.6x line-height.
+* **Nesting:** Place a `surface-container-highest` element inside a `surface-container-low` zone to create depth without a single drop shadow.
 
-The hierarchy communicates authority (serif) balanced with modern urban efficiency (sans-serif).
 
----
 
-## 4. Elevation & Depth: Tonal Layering
+### Signature Textures
 
-Traditional drop shadows are too "digital" for this system. We use **Tonal Layering** to define space.
+* **The Kinetic Glow:** For main CTAs, do not use flat fills. Use a linear gradient from `primary` (#ffeea1) to `primary-container` (#fedf00) at a 45-degree angle. This simulates the flicker of a neon sign.
 
-*   **The Layering Principle:** Place a `surface-container-lowest` (#ffffff) card on a `surface-container-low` (#fcf3de) background to create a "lifted" effect. This mimics physical paper layers.
-*   **Ambient Shadows:** If a floating element (like a FAB) is required, use a large blur (24px+) with a 6% opacity shadow tinted with `on-surface` (#1f1b0f). It should look like an object catching soft, ambient urban light.
-*   **The "Ghost Border" Fallback:** If a container needs a boundary for accessibility, use the `outline-variant` token at 15% opacity. Never use 100% black or high-contrast grey borders.
-*   **Glassmorphism:** For overlays or navigation bars, use `surface` at 80% opacity with a `20px backdrop-blur`. This allows the vibrant "Burnt Retro" colors of the background to bleed through, softening the interface.
+* **The Error Pulse:** Use `error` (#ff7351) against `surface` for a high-alert, "emergency signal" feel.
+
+
 
 ---
 
-## 5. Components
 
-### Buttons
-*   **Primary:** Solid `primary` (`#a43716`) with `on-primary` (`#ffffff`) text. Roundedness: `md` (0.375rem). Apply a subtle halftone overlay.
-*   **Secondary:** `surface-container-highest` with `secondary` text. No border.
-*   **Tertiary:** Text-only in `tertiary` (`#256567`), utilizing a thick 2px underline that animates on hover.
 
-### Cards & Lists
-*   **Rule:** Forbid divider lines. Use `spacing-6` (2rem) of vertical white space to separate items.
-*   **Card Style:** Use `surface-container` background with an offset "shadow box" effect (a second rectangle behind the card in `primary-fixed` offset by 4px) to mimic pop-art stylings.
+## 3. Typography: The Space Grotesk Grid
+
+We lead with **Space Grotesk**, a typeface that feels both engineered and eccentric.
+
+
+
+* **Display (lg/md):** Use for hero statements. Tracking should be tightened to `-0.02em`. These are your "billboards."
+
+* **Headline (lg/md):** High-impact navigation and section headers. Always use `on-surface` (#ffffff).
+
+* **Title (sm/md):** The workhorse for card headers.
+
+* **Body (lg/md):** Maintain readability. Ensure `on-surface-variant` (#adaaaa) is used for secondary body text to create a hierarchy against the stark white of primary labels.
+
+
+
+**Editorial Rule:** Never center-align long-form text. Stick to a hard-left "brutalist" rag to maintain the kinetic, fast-paced urban feel.
+
+
+
+---
+
+
+
+## 4. Elevation & Depth: The Kinetic Stack
+
+In this system, we do not use "natural" light. We use "mechanical" depth.
+
+
+
+* **The Layering Principle:** Depth is achieved by stacking `surface-container` tiers. For a premium feel, a `surface-bright` (#2c2c2c) element can "float" over the `background`, but it must be anchored by a `primary` border.
+
+* **Heavy Outlines:** This is the signature. Use a `2px` or `3px` solid border using `surface-container-lowest` (#000000) or `outline` (#767575) to frame containers. This mimics the comic-book/pop-art aesthetic.
+
+* **The Ghost Border:** For subtle containment (like input fields), use `outline-variant` (#484847) at 20% opacity.
+
+* **Glassmorphism:** For top navigation bars or floating action menus, use `surface` at 70% opacity with a `20px` backdrop-blur. This creates a "wet pavement" reflection effect typical of a night metropolis.
+
+
+
+---
+
+
+
+## 5. Components: Urban Modules
+
+
+
+### Buttons (The Kinetic Trigger)
+
+* **Primary:** Solid `primary` (#ffeea1) fill, `2px` solid black (`#000000`) border. Zero roundedness (`0px`). Text in `on-primary-fixed` (#473d00).
+
+* **Secondary:** `2px` solid `secondary` (#00eefc) border, no fill. Text in `secondary`.
+
+* **State Change:** On hover, shift the background fill to `primary-dim` (#eed100) and offset the box by `2px` (the "Pop-Art Lift").
+
+
 
 ### Input Fields
-*   **Visuals:** Use a `surface-variant` background. Instead of a 4-sided border, use a thick 3px bottom-border in `outline`. This feels more like a "ledger" or an analog form.
 
-### Signature Component: The "Transit Chip"
-*   For mobility statuses, use a `tertiary` chip with a distressed "stamp" texture. It should look like a validated physical ticket.
+* **Style:** Rectangular (`0px` radius). Background `surface-container-high`.
+
+* **Focus:** A high-impact `2px` border in `secondary` (#00eefc). Helper text must be in `label-sm`.
+
+
+
+### Cards & Lists
+
+* **Rule:** Forbid divider lines.
+
+* **Implementation:** Use a `12` (2.75rem) spacing unit between list items. Separate content blocks by alternating between `surface-container` and `surface-container-low`.
+
+* **Signature Element:** Every card should have a "Signal Tab"—a small 4px vertical strip of `tertiary` (#ff734f) on the far left or right to denote category.
+
+
+
+### Selection Chips
+
+* **Unselected:** `surface-container-highest` fill, `on-surface-variant` text.
+
+* **Selected:** `primary` fill, `on-background` black text, `0px` radius.
+
+
 
 ---
 
-## 6. Do's and Don'ts
+
+
+## 6. Do’s and Don’ts
+
+
 
 ### Do:
-*   **Do** embrace asymmetry. Center-aligning everything is a "template" trap. Offset your headlines.
-*   **Do** use the spacing scale religiously. Luxury is defined by the space between elements (e.g., use `spacing-12` for section margins).
-*   **Do** apply a subtle "noise" or grain overlay (3% opacity) to the entire background to kill the "digital flat" effect.
 
-### Don't:
-*   **Don't** use 1px borders. If you need a line, use a thick `8px` "Pop-Art" block of color or nothing at all.
-*   **Don't** use pure black (#000000). Our "darkest" color is `on-background` (#1f1b0f), which maintains the vintage, ink-on-paper warmth.
-*   **Don't** use standard easing. For interactions, use a "staccato" ease-in-out that feels more like a mechanical flip-clock than a smooth digital slide.
+* **Do** use extreme contrast. If it feels "too bold," you’re doing it right.
 
----
+* **Do** use `0px` border radius everywhere. Sharp corners are the language of the city.
 
-*Note to Designers: This system is a living document. Use your intuition to ensure the "Distressed Pop Art" vibe never compromises the "Sophisticated" brand pillar. If it looks like a comic book, you've gone too far. If it looks like a bank app, you haven't gone far enough.*```
+* **Do** overlap elements. Let a title bleed slightly over the edge of a card to create kinetic energy.
+
+* **Do** use the `24` (5.5rem) spacing scale for major section breathing room to allow the bold elements to "shout" without clutter.
+
+
+
+### Don’t:
+
+* **Don’t** use soft shadows or blurs for depth. Use color steps and hard lines.
+
+* **Don’t** use rounded corners. Even a 2px radius breaks the metropolitan rigor of this system.
+
+* **Don’t** use generic grey. If you need a neutral, use `surface-variant` which has the deep, inked tone of the Night Metropolis.
+
+* **Don’t** use 1px borders. They disappear in this high-contrast environment. Go bold (2px+) or go home.

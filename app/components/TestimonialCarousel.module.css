@@ -13,13 +13,16 @@
   width: 100%;
 }
 
+.carouselInner {
+  display: flex;
+  transition: transform 0.4s steps(4, end);
+}
+
 .slide {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
   padding: 1rem;
 }
 
@@ -37,17 +40,17 @@
 .quoteIcon {
   font-size: 5rem;
   line-height: 1;
-  color: var(--text-dark);
+  color: var(--on-surface);
   opacity: 0.1;
   margin-bottom: -2rem;
-  font-family: serif;
+  font-family: var(--font-space-grotesk);
 }
 
 .quoteBody {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.5;
-  color: var(--text-dark);
+  color: var(--on-surface);
   flex: 1;
 }
 
@@ -61,28 +64,29 @@
 .authorAvatar {
   width: 50px;
   height: 50px;
-  background: var(--mint);
-  border-radius: 0;
-  border: 2px solid var(--text-dark);
+  background: var(--tertiary);
+  border-radius: 0px;
+  border: 2px solid var(--outline);
 }
 
 .authorInfo h4 {
   font-size: 1.1rem;
-  color: var(--text-dark);
+  color: var(--on-surface);
 }
 
-.authorInfo span {
+.authorInfo span.role {
   font-size: 0.9rem;
-  color: var(--text-dark);
-  opacity: 0.7;
+  font-family: var(--font-sans);
+  color: var(--on-surface-variant);
+  font-weight: 600;
 }
 
 .badgeType {
   display: inline-block;
-  background: var(--background);
-  color: var(--text-dark);
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
   padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-pill);
+  border-radius: 0px;
   font-size: 0.75rem !important;
   font-weight: 800;
   text-transform: uppercase;
@@ -97,17 +101,19 @@
 }
 
 .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 0;
-  border: 2px solid var(--text-dark);
-  background: var(--cream);
+  width: 12px;
+  height: 12px;
+  border-radius: 0px;
+  background: var(--surface-container-low);
+  border: 2px solid var(--outline);
   cursor: pointer;
-  transition: all 0.1s ease;
+  padding: 0;
+  transition: all 0.2s ease;
 }
 
 .activeDot {
-  background: var(--text-dark);
+  background: var(--primary);
+  border: 2px solid var(--on-background);
   transform: scale(1.2);
 }
 

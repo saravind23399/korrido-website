@@ -1,12 +1,11 @@
 .heroSection {
   position: relative;
+  padding: 5.5rem 0;
   min-height: 90vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: radial-gradient(circle at top right, var(--mint) 0%, transparent 40%),
-              radial-gradient(circle at bottom left, var(--lavender) 0%, transparent 40%);
-  background-color: var(--cream);
+  background-color: var(--surface);
 }
 
 .heroContainer {
@@ -19,22 +18,22 @@
 }
 
 .headline {
-  font-size: 3.5rem;
-  font-weight: 900;
+  font-family: var(--font-sans);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--on-surface);
   line-height: 1.1;
-  letter-spacing: -1px;
   margin-bottom: 1.5rem;
-  color: var(--text-dark);
+  letter-spacing: -0.02em;
 }
 
 .subtext {
+  font-family: var(--font-sans);
   font-size: 1.25rem;
-  color: var(--text-light);
+  color: var(--on-surface-variant);
   margin-bottom: 2.5rem;
-  max-width: 480px;
   line-height: 1.6;
 }
-
 .ctaGroup {
   display: flex;
   gap: 1.5rem;
@@ -52,11 +51,11 @@
 .cabInterior {
   width: 320px;
   height: 480px;
-  background: #ffffff;
-  border-radius: 0;
-  box-shadow: 12px 12px 0px var(--text-dark);
+  background: var(--surface-container-highest);
+  border-radius: 0px;
+  box-shadow: none;
   position: relative;
-  border: 4px solid var(--text-dark);
+  border: 4px solid var(--on-background);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -64,14 +63,14 @@
 
 .screen {
   flex: 1;
-  background-color: var(--baby-blue);
+  background-color: var(--surface-container-low);
   display: flex;
   flex-direction: column;
 }
 
 .screenHeader {
-  background: var(--text-dark);
-  color: var(--cream);
+  background: var(--on-background);
+  color: var(--on-surface);
   padding: 1rem;
   font-weight: 800;
   font-size: 1.2rem;
@@ -88,10 +87,11 @@
 }
 
 .mockProduct {
-  background: #ffffff;
+  background: var(--surface-container-highest);
   height: 120px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
+  border-radius: 0px;
+  border: 2px solid var(--outline);
+  box-shadow: none;
   animation: fadeSlideUp 1s ease-out forwards;
 }
 
@@ -101,33 +101,33 @@
 
 .floatingCard {
   position: absolute;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--primary);
   padding: 0.8rem 1.2rem;
-  border-radius: 0;
-  box-shadow: 8px 8px 0px var(--text-dark);
-  font-weight: 700;
+  border-radius: 0px;
+  box-shadow: 4px 4px 0px var(--on-background);
+  font-weight: 600;
+  font-family: var(--font-sans);
   font-size: 0.9rem;
-  color: var(--text-dark);
-  backdrop-filter: blur(5px);
-  border: 2px solid var(--text-dark);
+  color: var(--on-primary-fixed);
+  border: 4px solid var(--on-background);
   z-index: 10;
 }
 
 .float1 {
-  top: 10%;
-  left: -15%;
+  top: 15%;
+  right: -10%;
   animation: float-large 6s ease-in-out infinite;
 }
 
 .float2 {
-  bottom: 25%;
-  right: -10%;
+  top: 45%;
+  left: -10%;
   animation: float 5s ease-in-out infinite alternate;
 }
 
 .float3 {
-  bottom: 5%;
-  left: -5%;
+  bottom: 15%;
+  right: -5%;
   animation: float-large 7s ease-in-out infinite reverse;
 }
 
@@ -147,7 +147,7 @@
 
 .pathLine {
   fill: none;
-  stroke: var(--peach);
+  stroke: var(--secondary);
   stroke-width: 0.5;
   stroke-dasharray: 4 2;
   animation: stream 20s linear infinite;
@@ -155,7 +155,7 @@
 
 .pathLine2 {
   fill: none;
-  stroke: var(--baby-blue);
+  stroke: var(--primary);
   stroke-width: 0.5;
   stroke-dasharray: 4 2;
   animation: stream 25s linear infinite reverse;

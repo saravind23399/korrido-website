@@ -9,6 +9,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 export const Card: React.FC<CardProps> = ({ children, variant = 'default', className = '', ...props }) => {
   return (
     <div className={`${styles.card} ${styles[variant]} ${className}`} {...props}>
+      <div className={styles.signalTab}></div>
       {children}
     </div>
   );

@@ -1,18 +1,29 @@
 .card {
-  background-color: var(--cream);
-  border-radius: 0;
+  background-color: var(--surface-container-highest);
+  border-radius: 0px;
   padding: 2rem;
-  border: 2px solid var(--text-dark);
-  box-shadow: 6px 6px 0px var(--text-dark);
-  transition: all 0.1s ease;
+  border: 2px solid var(--outline);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.signalTab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--tertiary);
 }
 
 .card:hover {
   transform: translate(-4px, -4px);
-  box-shadow: 10px 10px 0px var(--text-dark);
+  box-shadow: 4px 4px 0px var(--outline);
 }
 
-.peach { background-color: var(--peach); }
-.mint { background-color: var(--mint); }
-.lavender { background-color: var(--lavender); }
-.blue { background-color: var(--baby-blue); }
+.peach { background-color: var(--surface-container-low); }
+.mint { background-color: var(--surface-container-low); }
+.lavender { background-color: var(--surface-container-highest); }
+.blue { background-color: var(--surface-container-highest); }

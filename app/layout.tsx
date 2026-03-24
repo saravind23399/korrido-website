@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  variable: "--font-retro",
+const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Korrido",
     images: [
       {
-        url: "https://korrido.com/og-image.svg", // update when final
+        url: "https://korrido.com/og-image.jpg", // properly converted from SVG
         width: 1200,
         height: 630,
         alt: "Korrido Platform Preview",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Korrido - The Smart In-Cab Experience",
     description: "Engage, discover, and shop in real-time during your ride.",
-    images: ["https://korrido.com/og-image.svg"],
+    images: ["https://korrido.com/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -50,8 +50,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceMono.variable}`}>
-      <body className={spaceMono.className}>
+    <html lang="en" className={`${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <body className={spaceGrotesk.className} suppressHydrationWarning>
+        <div className="noise-overlay"></div>
         <Navbar />
         <main style={{ paddingTop: '80px', minHeight: 'calc(100vh - 80px)' }}>
           {children}

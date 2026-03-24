@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Hero.module.css';
 import { Button } from '../components/Button';
 import { AnimatedSection } from '../components/AnimatedSection';
+import { CupSoda, Cable, Cookie } from 'lucide-react';
 
 export const Hero = () => {
   return (
@@ -17,10 +18,10 @@ export const Hero = () => {
       <div className={`container ${styles.heroContainer}`}>
         <AnimatedSection className={styles.heroContent} delay={100}>
           <h1 className={styles.headline}>
-            Turn Every Ride Into a <span className="text-gradient">Discovery Experience</span>
+            A New Layer of Commerce <span className="text-gradient">Built Into Mobility</span>
           </h1>
           <p className={styles.subtext}>
-            Engage. Discover. Shop. All while you ride.
+            Turn idle ride time into instant discovery and purchases. Water, snacks, and essentials—just a tap away.
           </p>
           <div className={styles.ctaGroup}>
             <Button variant="pulse">Partner With Us</Button>
@@ -39,9 +40,15 @@ export const Hero = () => {
               </div>
             </div>
             {/* Floating Elements (Micro-interactions) */}
-            <div className={`${styles.floatingCard} ${styles.float1}`}>🎟️ -50% Off Local Event</div>
-            <div className={`${styles.floatingCard} ${styles.float2}`}>☕ Free Coffee Offer</div>
-            <div className={`${styles.floatingCard} ${styles.float3}`}>🛍️ Just Dropped</div>
+            <div className={`${styles.floatingCard} ${styles.float1}`}>
+              <CupSoda size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Cold Mineral Water
+            </div>
+            <div className={`${styles.floatingCard} ${styles.float2}`}>
+              <Cookie size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Premium Snacks
+            </div>
+            <div className={`${styles.floatingCard} ${styles.float3}`}>
+              <Cable size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Charging Cables
+            </div>
           </div>
         </AnimatedSection>
       </div>
