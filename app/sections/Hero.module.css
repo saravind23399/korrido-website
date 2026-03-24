@@ -76,6 +76,19 @@
   font-size: 1.2rem;
   display: flex;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.screenHeader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: shimmer 4s infinite;
 }
 
 .screenContent {
@@ -92,7 +105,8 @@
   border-radius: 0px;
   border: 2px solid var(--outline);
   box-shadow: none;
-  animation: fadeSlideUp 1s ease-out forwards;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
 .mockProduct:nth-child(2) {
@@ -111,6 +125,12 @@
   color: var(--on-primary-fixed);
   border: 4px solid var(--on-background);
   z-index: 10;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.floatingCard:hover {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 7px 7px 0px var(--on-background);
 }
 
 .float1 {

@@ -45,6 +45,11 @@
   box-shadow: 2px 2px 0px var(--secondary);
 }
 
+.secondary:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
 .pulse {
   background: linear-gradient(45deg, var(--primary), var(--primary-container));
   color: var(--on-primary-fixed);

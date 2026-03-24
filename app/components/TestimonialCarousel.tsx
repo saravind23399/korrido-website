@@ -14,19 +14,19 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     quote: "Korrido transformed our local ad strategy. We saw a 3x increase in engagement compared to traditional out-of-home ads.",
-    name: "Sarah Jenkins",
+    name: "Nidhi Agarwal",
     role: "Marketing Director",
     type: "brand"
   },
   {
     quote: "Waiting in a cab used to be boring. Now I look forward to discovering new cafes and redeeming discounts on my way home.",
-    name: "Michael T.",
+    name: "Bharadwaj Giridar",
     role: "Daily Commuter",
     type: "rider"
   },
   {
     quote: "The easiest passive income I've ever made. The screens were installed in 10 minutes and passengers love them.",
-    name: "David Chen",
+    name: "Sanjay Kumar",
     role: "Fleet Owner",
     type: "driver"
   }
@@ -46,10 +46,10 @@ export const TestimonialCarousel = () => {
     <div className={styles.carouselContainer}>
       <div className={styles.slidesWrapper}>
         {testimonials.map((testimonial, idx) => (
-          <div 
+          <div
             key={idx}
             className={`${styles.slide} ${idx === currentIndex ? styles.activeSlide : ''}`}
-            style={{ 
+            style={{
               transform: `translateX(${100 * (idx - currentIndex)}%)`,
               opacity: idx === currentIndex ? 1 : 0
             }}
@@ -69,10 +69,10 @@ export const TestimonialCarousel = () => {
           </div>
         ))}
       </div>
-      
+
       <div className={styles.dots}>
         {testimonials.map((_, idx) => (
-          <button 
+          <button
             key={idx}
             className={`${styles.dot} ${idx === currentIndex ? styles.activeDot : ''}`}
             onClick={() => setCurrentIndex(idx)}

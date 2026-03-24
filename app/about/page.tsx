@@ -66,7 +66,7 @@ export default function AboutUs() {
         <section className={styles.foundersSection}>
           <h2 className={styles.sectionHeading}>THE LEADERSHIP ENGINE</h2>
           <p className={styles.foundersIntro}>
-            Driven by a team balancing deep engineering with robust product, compliance, and ops strategy. A legacy of execution starting from TVS Matriculation Higher Secondary School, moving fast to build the core of Korrido.
+            Driven by a team balancing deep engineering with robust product, compliance, and ops strategy. A legacy of execution in start-ups and MNCs, moving fast to build the core of Korrido.
           </p>
 
           <div className={styles.foundersGrid}>

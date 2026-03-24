@@ -35,7 +35,15 @@
   left: 10%;
   right: 10%;
   height: 4px;
-  background: var(--secondary);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--secondary) 0px,
+    var(--secondary) 12px,
+    transparent 12px,
+    transparent 20px
+  );
+  background-size: 200% 100%;
+  animation: shimmer 8s linear infinite;
   z-index: 0;
   opacity: 1;
   border-radius: 0;
@@ -53,6 +61,13 @@
   align-items: center;
   text-align: center;
   border: 2px solid transparent;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.stepCard:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0px var(--on-background);
+  border-color: var(--outline);
 }
 
 .stepCard h3 {

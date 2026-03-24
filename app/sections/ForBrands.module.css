@@ -66,6 +66,12 @@
   font-weight: bold;
   flex-shrink: 0;
   color: var(--on-primary-fixed);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.features li:hover .check {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(255, 238, 161, 0.25);
 }
 
 .features strong {
@@ -168,7 +174,9 @@
 .statValue {
   height: 24px;
   width: 60%;
-  background: var(--on-surface);
+  background: linear-gradient(90deg, var(--on-surface) 40%, var(--on-surface-variant) 50%, var(--on-surface) 60%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
   border-radius: 0px;
 }
 

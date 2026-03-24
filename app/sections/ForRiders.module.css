@@ -201,6 +201,12 @@
   font-size: 0.8rem;
   font-weight: 700;
   border: 2px solid var(--outline);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cardBtn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0px var(--on-background);
 }
 
 .coin {
