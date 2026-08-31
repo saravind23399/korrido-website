@@ -1,25 +1,24 @@
-import { Hero } from "./sections/Hero";
-import { HowItWorks } from "./sections/HowItWorks";
-import { ForBrands } from "./sections/ForBrands";
-import { ForRiders } from "./sections/ForRiders";
-import { ForDrivers } from "./sections/ForDrivers";
-import { ProductDemo } from "./sections/ProductDemo";
-import { WhyKorrido } from "./sections/WhyKorrido";
-import { Testimonials } from "./sections/Testimonials";
-import { FinalCTA } from "./sections/FinalCTA";
+import AppShell from './components/AppShell';
+import Hero from './components/Hero';
+import TrustBar from './components/TrustBar';
+import Platform from './components/Platform';
+import HowItWorks from './components/HowItWorks';
+import Pricing from './components/Pricing';
+import Testimonials from './components/Testimonials';
+import FinalCTA from './components/FinalCTA';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
-    <>
+    <AppShell>
       <Hero />
+      <TrustBar />
+      <Platform />
       <HowItWorks />
-      <ForBrands />
-      <ForRiders />
-      <ForDrivers />
-      <ProductDemo />
-      <WhyKorrido />
+      <Pricing />
       <Testimonials />
       <FinalCTA />
-    </>
+      <Footer />
+    </AppShell>
   );
 }

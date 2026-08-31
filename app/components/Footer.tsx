@@ -1,32 +1,59 @@
-import React from 'react';
-import styles from './Footer.module.css';
-import Link from 'next/link';
+'use client';
 
-export const Footer = () => {
+import Wordmark from './Wordmark';
+
+const footerLinks = ['Privacy', 'Terms', 'Support', 'Brand Kit'];
+
+export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={`container ${styles.footerContainer}`}>
-        <div className={styles.brand}>
-          <h3>Korrido</h3>
-          <p>Turn Every Ride Into a Discovery Experience.</p>
+    <footer style={{ background: '#ffffff', padding: '48px 5vw' }}>
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 24,
+        }}
+      >
+        <Wordmark color="#1a1c1c" size={24} accent="#7a5761" />
+
+        <div style={{ display: 'flex', gap: 32 }}>
+          {footerLinks.map((item) => (
+            <a
+              key={item}
+              href="#"
+              style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: '0.8125rem',
+                color: 'rgba(26,28,28,0.4)',
+                textDecoration: 'none',
+                transition: 'color 250ms cubic-bezier(0.23,1,0.32,1)',
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLAnchorElement).style.color = 'rgba(26,28,28,0.8)';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLAnchorElement).style.color = 'rgba(26,28,28,0.4)';
+              }}
+            >
+              {item}
+            </a>
+          ))}
         </div>
-        <div className={styles.links}>
-          <div className={styles.linkGroup}>
-            <h4>Platform</h4>
-            <a href="/#brands">For Brands</a>
-            <a href="/#riders">For Riders</a>
-            <a href="/#drivers">For Drivers</a>
-          </div>
-          <div className={styles.linkGroup}>
-            <h4>Company</h4>
-            <Link href="/about">About Us</Link>
-            <Link href="/contact">Contact</Link>
-          </div>
+
+        <div
+          style={{
+            fontFamily: "'Manrope', sans-serif",
+            fontSize: '0.75rem',
+            color: 'rgba(26,28,28,0.3)',
+          }}
+        >
+          © 2026 Korrido Technologies Pvt. Ltd. · India
         </div>
-      </div>
-      <div className={styles.copyright}>
-        <p>&copy; {new Date().getFullYear()} Korrido. All rights reserved.</p>
       </div>
     </footer>
   );
-};
+}
