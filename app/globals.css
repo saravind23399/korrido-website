@@ -51,14 +51,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   color-scheme: dark;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-snap-type: none;
-  }
 }
 
 body {
@@ -127,7 +120,6 @@ button {
   display: grid;
   place-items: center;
   min-height: 100dvh;
-  scroll-snap-align: start;
   padding: 5rem 1rem;
 }
 
@@ -245,6 +237,8 @@ button {
   border-radius: 1.5rem;
   box-shadow: 0 16px 48px -24px rgba(0, 0, 0, 0.4);
 }
+
+button.bezel-card:active { transform: scale(0.98); }
 
 .bezel-card-inner {
   background: var(--color-surface);

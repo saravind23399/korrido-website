@@ -8,7 +8,7 @@ import { ArrowRight, Check, ChevronDown, MapPin } from './Icons';
 
 const steps = [
   ['01', 'Brief us', 'Share your zones, audience, and goals. We reply within 24 hours.'],
-  ['02', 'We craft your creative', 'Our team formats your artwork for HD in-cab screens.'],
+  ['02', 'We format your creative', 'Send your artwork. Our team formats it for HD in-cab screens.'],
   ['03', 'Live across cabs', 'Your brand goes live on screens inside cabs across your chosen zones.'],
 ] as const;
 
@@ -86,21 +86,21 @@ export default function AdsHome() {
 
   return (
     <>
-      <Scene id="hero" image="/images/cabin.jpg" className="items-end" parallax>
+      <Scene id="hero" image="/images/hero-cabin.jpg" className="items-end" parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
           <h1 className="display-headline max-w-4xl text-foreground">
-            The attention is already there.
+            Your next customer is sitting in a cab.
           </h1>
           <p className="body-copy mt-6 max-w-2xl text-foreground/80">
-            Reach passengers inside Bengaluru cabs for 20-30 minutes of undivided attention. No cameras. No biometrics. Just GPS-verified impressions.
+            Reach passengers inside Bengaluru cabs for 20 to 30 minutes of undivided attention. GPS-verified impressions. No cameras. Live in 48 hours.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/apply" className="btn-magnetic btn-primary">
               <span>Reserve a zone</span>
               <span className="btn-icon"><ArrowRight className="h-3.5 w-3.5" /></span>
             </Link>
-            <Link href="#medium" className="btn-magnetic btn-ghost">
-              <span>See the film</span>
+            <Link href="/estimate" className="btn-magnetic btn-ghost">
+              <span>Estimate your reach</span>
               <span className="btn-icon"><ArrowRight className="h-3.5 w-3.5" /></span>
             </Link>
           </div>
@@ -111,22 +111,22 @@ export default function AdsHome() {
         <div className="grid min-h-[80dvh] w-full items-center gap-14 lg:grid-cols-2">
           <div className="bezel order-2 lg:order-1">
             <div className="bezel-inner relative aspect-[4/3] w-full overflow-hidden lg:aspect-auto lg:h-[60dvh]">
-              <Image src="/images/HERO.png" alt="Outdoor advertising is a guess" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src="/images/gap-contrast.jpg" alt="Bengaluru traffic with billboards versus a single cab" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               <div className="absolute inset-0" style={{ background: 'color-mix(in srgb, var(--color-background) 35%, transparent)' }} />
             </div>
           </div>
           <div className="order-1 max-w-xl lg:order-2">
-            <h2 className="section-headline text-foreground">Outdoor advertising is stuck.</h2>
+            <h2 className="section-headline text-foreground">Outdoor is a guess. Digital is a scroll.</h2>
             <div className="mt-8 space-y-5">
-              <p className="body-copy text-muted-foreground">Billboards are a guess. You pay for impressions you cannot measure.</p>
-              <p className="body-copy text-muted-foreground">Digital feeds are a race to the bottom. Customers scroll past in half a second.</p>
-              <p className="body-copy text-foreground/90">The passenger in a cab is different. The screen is right there. They are not scrolling. They are looking forward.</p>
+              <p className="body-copy text-muted-foreground">Billboards give you reach but no measurement. You pay for impressions you cannot count.</p>
+              <p className="body-copy text-muted-foreground">Digital feeds give you targeting but people scroll past in half a second. You pay for attention you do not get.</p>
+              <p className="body-copy text-foreground/90">The passenger in a cab is different. They sit still for 20 to 30 minutes. The screen is right there. They are not scrolling. They are looking forward.</p>
             </div>
           </div>
         </div>
       </Scene>
 
-      <Scene id="medium" image="/images/cabin.jpg" overlay parallax>
+      <Scene id="medium" image="/images/medium-screen.jpg" overlay parallax>
         <div className="flex min-h-[80dvh] w-full flex-col items-center justify-center text-center">
           <h2 className="display-headline max-w-5xl text-foreground">The last undivided surface.</h2>
           <p className="body-copy mx-auto mt-6 max-w-2xl text-foreground/80">
@@ -175,13 +175,17 @@ export default function AdsHome() {
               </motion.div>
             ))}
           </div>
+          <Link href="/how-it-works" className="btn-magnetic btn-ghost mt-8 w-fit">
+            <span>See how it works</span>
+            <span className="btn-icon"><ArrowRight className="h-3.5 w-3.5" /></span>
+          </Link>
         </div>
       </Scene>
 
-      <Scene className="bg-surface" overlay={false}>
+      <Scene image="/images/bengaluru-night.jpg" overlay parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-center">
           <h2 className="section-headline text-foreground">Live across Bengaluru.</h2>
-          <p className="body-copy mt-4 max-w-2xl text-muted-foreground">16 active zones across the city. More added every month.</p>
+          <p className="body-copy mt-4 max-w-2xl text-foreground/80">16 active zones across the city. More added every month.</p>
           <div className="mt-12 overflow-hidden border-y border-white/5 py-6">
             <div className="animate-marquee">
               {[...zones, ...zones].map((zone, i) => (
@@ -191,7 +195,7 @@ export default function AdsHome() {
               ))}
             </div>
           </div>
-          <p className="mt-8 text-sm text-muted-foreground">More zones coming soon: Malleshwaram, Rajajinagar, Yelahanka.</p>
+          <p className="mt-8 text-sm text-foreground/70">More zones coming soon: Malleshwaram, Rajajinagar, Yelahanka.</p>
         </div>
       </Scene>
 
@@ -225,10 +229,13 @@ export default function AdsHome() {
               </motion.div>
             ))}
           </div>
+          <Link href="/about" className="font-mono text-sm font-bold uppercase tracking-wide text-primary mt-8 transition-colors duration-500 hover:text-foreground" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>
+            Read the full story →
+          </Link>
         </div>
       </Scene>
 
-      <Scene className="bg-background" overlay={false}>
+      <Scene className="bg-surface" overlay={false}>
         <div className="grid min-h-[80dvh] w-full items-center gap-12 lg:grid-cols-2">
           <div className="max-w-xl">
             <h2 className="display-headline text-foreground">Reserve a zone now.</h2>

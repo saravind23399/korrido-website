@@ -19,11 +19,11 @@ const display = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://korrido.com'),
   title: { default: 'Korrido · In-Cab Advertising', template: '%s · Korrido' },
-  description: 'Premium in-cab digital advertising for Indian cities. Captive attention, GPS-verified impressions, live in 48 hours.',
+  description: 'Your next customer is sitting in a cab. Reach passengers inside Bengaluru cabs for 20 to 30 minutes of undivided attention. GPS-verified impressions. No cameras. Live in 48 hours.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Korrido · In-Cab Advertising',
-    description: 'Your next customer is sitting in a cab. Reach them for 20-30 minutes of undivided attention.',
+    description: 'Your next customer is sitting in a cab. Reach them for 20 to 30 minutes of undivided attention. GPS-verified. No cameras. Live in 48 hours.',
     url: '/',
     siteName: 'Korrido',
     type: 'website',

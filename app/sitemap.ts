@@ -6,12 +6,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://korrido.com';
   const pages = [
     ['/', 'weekly', 1],
-    ['/apply', 'weekly', .9],
-    ['/drive', 'weekly', .85],
-    ['/estimate', 'weekly', .8],
-    ['/pledge', 'monthly', .7],
-    ['/story', 'monthly', .65],
-    ['/about', 'monthly', .6],
+    ['/how-it-works', 'weekly', .9],
+    ['/estimate', 'weekly', .85],
+    ['/apply', 'weekly', .8],
+    ['/drive', 'weekly', .75],
+    ['/about', 'monthly', .7],
     ['/terms', 'yearly', .3],
     ['/privacy', 'yearly', .3],
     ['/refund', 'yearly', .3],

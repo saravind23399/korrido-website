@@ -71,7 +71,7 @@ export default function CampaignEstimator() {
             {step === 1 && (
               <div>
                 <h1 className="section-headline text-foreground">What is your campaign goal?</h1>
-                <p className="body-copy mt-3 text-muted-foreground">Choose the objective that matches what you are trying to achieve.</p>
+                <p className="body-copy mt-3 text-muted-foreground">Pick the objective that matches what you are trying to do. We will calculate the right frequency for you.</p>
                 <div className="mt-8 grid gap-3 sm:grid-cols-2">
                   {goals.map((item) => (
                     <button
@@ -142,7 +142,7 @@ export default function CampaignEstimator() {
                             key={zone}
                             type="button"
                             onClick={() => toggleZone(zone)}
-                            className={`rounded-full border px-3 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-colors duration-500 ${selectedZones.includes(zone) ? 'border-primary bg-primary/8 text-primary' : 'border-white/10 text-muted-foreground'}`}
+                            className={`rounded-full border px-3 py-2 text-xs font-mono font-bold uppercase tracking-wide transition-all duration-500 active:scale-95 ${selectedZones.includes(zone) ? 'border-primary bg-primary/8 text-primary' : 'border-white/10 text-muted-foreground'}`}
                             style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}
                           >
                             {zone}
@@ -172,7 +172,7 @@ export default function CampaignEstimator() {
                   {reach.toLocaleString('en-IN')}<span className="ml-2 text-sm font-normal text-muted-foreground">passengers</span>
                 </div>
                 <p className="mt-2 text-center text-xs text-muted-foreground">Starting from 15,000 passenger reach.</p>
-                <button type="button" className="mt-6 w-full rounded-2xl p-3 font-mono text-xs font-bold uppercase tracking-wide text-primary" style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)' }}>
+                <button type="button" className="mt-6 w-full rounded-2xl p-3 font-mono text-xs font-bold uppercase tracking-wide text-primary transition-transform duration-500 active:scale-[0.98]" style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)', transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>
                   Need more than 2,00,000? Talk to enterprise →
                 </button>
               </div>
@@ -217,10 +217,10 @@ export default function CampaignEstimator() {
             )}
 
             <div className="mt-8 flex justify-between">
-              <button type="button" disabled={step === 1} onClick={() => setStep(step - 1)} className="font-mono text-sm text-muted-foreground uppercase tracking-wide transition-opacity duration-500 disabled:opacity-40" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>← Back</button>
+              <button type="button" disabled={step === 1} onClick={() => setStep(step - 1)} className="font-mono text-sm text-muted-foreground uppercase tracking-wide transition-all duration-500 active:scale-95 disabled:active:scale-100 disabled:opacity-40" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>← Back</button>
               {step < 4 && <button type="button" disabled={!allowed} onClick={() => setStep(step + 1)} className="btn-magnetic btn-primary disabled:!bg-surface-2 disabled:!text-muted-foreground disabled:opacity-70" style={{ padding: '0.6rem 1.25rem' }}>Next →</button>}
               {step === 4 && <button type="button" onClick={() => setStep(5)} className="btn-magnetic btn-primary" style={{ padding: '0.6rem 1.25rem' }}>Get my estimate</button>}
-              {step === 5 && <button type="button" onClick={reset} className="font-mono text-sm font-bold uppercase tracking-wide text-primary transition-colors duration-500" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>Start over</button>}
+              {step === 5 && <button type="button" onClick={reset} className="font-mono text-sm font-bold uppercase tracking-wide text-primary transition-all duration-500 active:scale-95" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>Start over</button>}
             </div>
           </div>
         </motion.div>

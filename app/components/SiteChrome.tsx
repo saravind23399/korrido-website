@@ -9,11 +9,9 @@ import { ArrowRight } from './Icons';
 
 const navItems = [
   ['Home', '/'],
-  ['Story', '/story'],
-  ['Pledge', '/pledge'],
+  ['How it works', '/how-it-works'],
+  ['Pricing', '/estimate'],
   ['About', '/about'],
-  ['Estimate', '/estimate'],
-  ['Apply', '/apply'],
   ['Drive', '/drive'],
 ] as const;
 
@@ -198,17 +196,17 @@ export function SiteFooter() {
         <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-sm">
             <Image src="/images/korrido-dark.svg" alt="Korrido" width={140} height={40} className="mb-4 h-8 w-auto" unoptimized />
-            <p className="text-sm leading-relaxed text-foreground/70">Premium in-cab digital advertising for Indian cities. Captive attention, GPS-verified, live in 48 hours.</p>
+            <p className="text-sm leading-relaxed text-foreground/70">In-cab advertising for Bengaluru. HD screens inside city cabs. GPS-verified impressions. No cameras. Live in 48 hours.</p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <FooterColumn title="Product" links={[
+              ['How it works', '/how-it-works'],
+              ['Pricing', '/estimate'],
               ['Apply', '/apply'],
               ['Drive', '/drive'],
-              ['Story', '/story'],
-              ['Pledge', '/pledge'],
-              ['About', '/about'],
             ]} />
-            <FooterColumn title="Legal" links={[
+            <FooterColumn title="Company" links={[
+              ['About', '/about'],
               ['Terms', '/terms'],
               ['Privacy', '/privacy'],
               ['Refund', '/refund'],
@@ -244,7 +242,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
       <ScrollProgress />
       <TopNav />
       <FloatingCTA />
-      <main className="snap-y snap-proximity">{children}</main>
+      <main>{children}</main>
       <SiteFooter />
     </>
   );

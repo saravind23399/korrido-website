@@ -19,6 +19,12 @@
       "skillPath": "skills/better-typography/SKILL.md",
       "computedHash": "3fb90fed3aeb57a6a545be4e4f285f0d1babdaff9644ec3526857437481747a1"
     },
+    "brand-copywriter": {
+      "source": "ognjengt/founder-skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-copywriter/SKILL.md",
+      "computedHash": "2d2699da05226c6f34462607af8313f3c39316e47ff916b9777653274b3bcf3b"
+    },
     "brandkit": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",

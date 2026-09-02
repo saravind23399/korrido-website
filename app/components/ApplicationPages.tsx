@@ -40,11 +40,11 @@ export function AdvertiserApplication() {
   const [done, setDone] = useState(false);
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (event.currentTarget.reportValidity()) setDone(true); };
   const features = [
-    [Upload, 'Upload image/video', 'JPG, PNG, MP4 up to 50MB.'],
-    [Zap, 'Launch instantly', 'Approved ads go live within minutes.'],
-    [Edit, 'Edit anytime', 'Swap creative, pause, or extend mid-campaign.'],
-    [Radio, 'Real-time control', 'Live impression count, scan rate, zone reach.'],
-    [MapPin, 'Live device & vehicle tracking', 'See every active screen and cab on a live map.'],
+    [Upload, 'Upload image or video', 'JPG, PNG, MP4 up to 50MB. We handle the rest.'],
+    [Zap, 'Launch in minutes', 'Approved ads go live wirelessly. No installation crew.'],
+    [Edit, 'Edit mid-campaign', 'Swap creative, pause, or extend without a phone call.'],
+    [Radio, 'Real-time dashboard', 'Live impression count, zone reach, uptime. No vanity metrics.'],
+    [MapPin, 'Live device tracking', 'See every active screen and cab on a live map.'],
   ] as const;
 
   return (
@@ -52,8 +52,8 @@ export function AdvertiserApplication() {
       <section className="scene items-end bg-surface" data-scene>
         <div className="scene-panel">
           <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
-            <h1 className="display-headline max-w-5xl text-foreground">Share your details.</h1>
-            <p className="body-copy mt-6 max-w-2xl text-foreground/80">Limited slots per zone. Share your budget and timeline. Our team will call you to plan the campaign and lock in priority placement.</p>
+            <h1 className="display-headline max-w-5xl text-foreground">Put your brand in the cab.</h1>
+            <p className="body-copy mt-6 max-w-2xl text-foreground/80">Limited slots per zone. Share your budget and timeline. We will call you within 24 hours to plan the campaign and lock in priority placement.</p>
           </div>
         </div>
       </section>
@@ -62,6 +62,7 @@ export function AdvertiserApplication() {
         <div className="scene-panel">
           <div className="flex min-h-[80dvh] w-full flex-col justify-center">
             <h2 className="section-headline text-foreground">Everything you need to run a campaign.</h2>
+            <p className="body-copy mt-4 max-w-2xl text-muted-foreground">Upload, launch, track, and edit. All from one dashboard. No phone calls, no emails, no waiting.</p>
             <div className="mt-10 grid max-w-4xl gap-4">
               {features.map(([Icon, title, desc], i) => (
                 <motion.div
@@ -92,6 +93,7 @@ export function AdvertiserApplication() {
         <div className="scene-panel">
           <div className="flex min-h-[80dvh] w-full flex-col justify-center">
             <h2 className="section-headline text-foreground">From brief to live in four steps.</h2>
+            <p className="body-copy mt-4 max-w-2xl text-muted-foreground">No printing. No installation crews. No waiting weeks for a billboard slot.</p>
             <div className="mt-10 max-w-3xl space-y-3">
               {['You share your details, budget, and timeline.', 'We email you within the hour to verify GSTIN and business.', 'We create your account and reserve your slot with priority placement.', 'Your ad goes live in cabs. You see live impressions on the dashboard.'].map((x, i) => (
                 <motion.div
@@ -119,7 +121,7 @@ export function AdvertiserApplication() {
           <div className="grid min-h-[80dvh] w-full items-center gap-14 lg:grid-cols-2">
             <div className="max-w-xl">
               <h2 className="section-headline text-foreground">Apply to advertise.</h2>
-              <p className="body-copy mt-4 text-foreground/80">Takes two minutes. Our team will call you within 24 hours.</p>
+              <p className="body-copy mt-4 text-foreground/80">Takes two minutes. We will call you within 24 hours.</p>
             </div>
             <div className="bezel w-full max-w-lg">
               <div className="bezel-inner p-7">
@@ -176,15 +178,16 @@ export function DriverApplication() {
   const [vehicle, setVehicle] = useState('2025');
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (event.currentTarget.reportValidity()) setDone(true); };
   const perks = [
-    [Banknote, 'Steady monthly payouts', 'Direct bank transfer at the end of every month.'],
-    [EyeOff, 'Zero passenger tracking', 'No cameras, no audio, no biometrics.'],
-    [Wrench, 'No extra work', 'We handle the screen, content, and maintenance.'],
-    [MapPin, 'Local-first', 'Pick the zones you usually drive.'],
+    [Banknote, 'Steady monthly income', 'Direct bank transfer at the end of every month. No deductions, no surprises.'],
+    [EyeOff, 'Zero passenger tracking', 'No cameras, no audio, no biometrics. The screen plays ads. That is all it does.'],
+    [Wrench, 'No extra work', 'We install the screen, handle the content, and maintain the hardware. You just drive.'],
+    [MapPin, 'Drive your routes', 'Pick the zones you usually drive. We match your screen to campaigns in your area.'],
   ] as const;
 
   return (
     <>
-      <section className="scene items-end bg-surface" data-scene>
+      <section className="scene items-end" data-scene style={{ backgroundImage: 'url(/images/driver-hero.jpg)', backgroundSize: 'cover', backgroundPosition: 'center right' }}>
+        <div className="scene-overlay" />
         <div className="scene-panel">
           <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
             <h1 className="display-headline max-w-5xl text-foreground">Earn extra every kilometre.</h1>
@@ -211,7 +214,7 @@ export function DriverApplication() {
           <div className="grid min-h-[80dvh] w-full items-center gap-14 lg:grid-cols-2">
             <div className="max-w-xl">
               <h2 className="section-headline text-foreground">Apply to drive.</h2>
-              <p className="body-copy mt-4 text-foreground/80">Takes 2 minutes. We will call you within 48 hours.</p>
+              <p className="body-copy mt-4 text-foreground/80">Takes two minutes. We will call you within 48 hours.</p>
             </div>
             <div className="bezel w-full max-w-lg">
               <div className="bezel-inner p-7">
