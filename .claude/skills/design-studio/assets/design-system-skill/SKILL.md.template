@@ -1,0 +1,43 @@
+---
+name: {{PROJECT_SLUG}}-design
+description: >-
+  Load this skill when building, extending, theming, or producing paginated {{PROJECT_NAME}} artifacts.
+  It carries design DNA, tokens, and optional accepted document rules.
+---
+
+> **Canonical master:** `assets/tokens.css` is the upstream source of truth for shared {{PROJECT_NAME}} visual values. When present, `document-visual-contract.json` is the additional source of truth for paginated page geometry, furniture, pagination and print rules. Consuming copies are vendored consumers; edit accepted authorities first, then re-sync.
+
+# {{PROJECT_NAME}} Design System
+
+{{PROJECT_NAME}} (codified {{DATE}} as {{DNA_NAME}}) is a {{CREATIVE_TENSION}} design system.
+
+{{ESSENCE}}
+
+## Non-negotiables
+
+1. **Use canonical tokens.** Do not hardcode a value already represented in `assets/tokens.css`.
+2. **One motif, one meaning.** Do not overload recurring shapes, glyphs or motion patterns.
+3. **Colour is never the only cue.** Status/state/category needs a redundant channel.
+4. **Respect reduced motion** on interactive surfaces; every animation needs a static equivalent.
+5. **For paginated artifacts, follow `document-visual-contract.json` when present.** It overrides generic assumptions about page size, margins, furniture, pagination and document component recipes, but never invents business/content truth.
+
+## Routing table
+
+| Task | Go to |
+|------|-------|
+| Name & essence | `design-dna.md` `#Name-and-essence` |
+| Principles | `design-dna.md` `#Principles` |
+| Aesthetic & creative tension | `design-dna.md` `#Aesthetic-and-creative-tension` |
+| Colour / theming / semantic roles | `design-dna.md` `#Colour-language` |
+| Tokens / canonical values | `assets/tokens.css` |
+| Typography | `design-dna.md` `#Typography` plus `document-visual-contract.json` for page roles when present |
+| Spatial rhythm | `design-dna.md` `#Spatial-rhythm` |
+| Paginated document / PDF / print | `document-visual-contract.json` when present |
+| Signature motifs | `design-dna.md` `#Signature-motifs` |
+| Motion | `design-dna.md` `#Motion` |
+| Voice & tone | `design-dna.md` `#Voice-and-tone` |
+| Applying the system | `design-dna.md` `#Applying-the-system` |
+| Anti-goals | `design-dna.md` `#Anti-goals` |
+| Provenance | `design-dna.md` `#Provenance` |
+
+This `SKILL.md` is an INDEX. Detailed reasoning lives in the referenced authorities; an absent optional document contract is not permission to invent page rules.

@@ -1,0 +1,437 @@
+workflow:
+  name: design-studio
+  description: >-
+    Rooted, resumable multi-agent frontend design. Product framing and implementation may see source;
+    visual direction and browser judgement do not. Every build is preserved, mechanical findings are
+    current snapshots, and only an accepted final tree becomes authoritative.
+
+  invariants:
+    - Visual Director never receives source, selectors, implementation diffs, the unattended seed or assigned candidate index.
+    - Evaluator never receives source, implementation effort, full design description, design flags or prior scores.
+    - Evaluator reports evidence and scores only; Orchestrator owns REFINE, PIVOT, SHIP and HALT.
+    - Unattended assignment is committed before candidate generation and hidden from Visual Director.
+    - Every completed iteration is immutable; events.jsonl is append-only.
+    - Mechanical findings are complete current snapshots, not an accumulated open cache.
+    - No visual winner is selected without a runnable target and both required browser viewports.
+    - No accepted tree is codified until finish/acceptance.json proves its postconditions.
+    - No agent self-commits; version-control actions belong to the calling harness or user.
+
+  capabilities:
+    required: [file_io, shell, isolated_subagents]
+    visualDecision: [runnable_target, browser_automation]
+    optional: [business_copy_style, image_generation, structured_user_questions, version_control]
+
+  defaults:
+    budgetClass: standard
+    iterationBudgets: { quick: 2, standard: 4, ambitious: 6 }
+    explicitBudgetMinimum: 1
+    explicitBudgetMaximum: 8
+    pivotBudget: { quick: 0, standard: 1, ambitious: 2, explicit: 1 }
+    shipFloor: { designQuality: 7, originality: 7, craft: 7, functionality: 7 }
+    viewports: { desktop: [1440, 900], mobile: [390, 844] }
+    finishCorrectionRounds: 1
+    directionCount: 3
+
+  paths:
+    runRoot: harness-output/runs/{runId}
+    runManifest: harness-output/runs/{runId}/run.json
+    roots: harness-output/runs/{runId}/roots.json
+    capabilities: harness-output/runs/{runId}/capabilities.json
+    events: harness-output/runs/{runId}/events.jsonl
+    product: PRODUCT.md
+    design: DESIGN.md
+    copy: COPY.md
+    spec: harness-output/runs/{runId}/spec.md
+    sprintContract: harness-output/runs/{runId}/sprint-contract.md
+    surfaceBrief: harness-output/runs/{runId}/surface-brief.md
+    baseline: harness-output/runs/{runId}/baseline/
+    scores: harness-output/runs/{runId}/scores.json
+    iterationRoot: harness-output/runs/{runId}/iterations/{N}
+    directionAssignment: harness-output/runs/{runId}/iterations/{N}/direction/direction-assignment.json
+    directions: harness-output/runs/{runId}/iterations/{N}/direction/directions.md
+    directionSelection: harness-output/runs/{runId}/iterations/{N}/direction/direction-selection.json
+    selectedDirection: harness-output/runs/{runId}/iterations/{N}/direction/selected-direction.md
+    designDescription: harness-output/runs/{runId}/iterations/{N}/direction/design-description.md
+    site: harness-output/runs/{runId}/iterations/{N}/site/
+    serveConfig: harness-output/runs/{runId}/iterations/{N}/serve.json
+    designFlags: harness-output/runs/{runId}/iterations/{N}/design-flags.json
+    mechanicalFindings: harness-output/runs/{runId}/iterations/{N}/mechanical-findings.json
+    screenshots: harness-output/runs/{runId}/iterations/{N}/screenshots/
+    observation: harness-output/runs/{runId}/iterations/{N}/observation.json
+    critique: harness-output/runs/{runId}/iterations/{N}/critique.md
+    finishRoot: harness-output/runs/{runId}/finish/
+    finishSelection: harness-output/runs/{runId}/finish/selection.json
+    finishSelectedSite: harness-output/runs/{runId}/finish/selected-site/
+    finishSelectedServeConfig: harness-output/runs/{runId}/finish/selected-serve.json
+    finishSelectedDirection: harness-output/runs/{runId}/finish/selected-direction.md
+    finishCorrectedSite: harness-output/runs/{runId}/finish/corrected-site/
+    finishCorrectedServeConfig: harness-output/runs/{runId}/finish/corrected-serve.json
+    finishFinalTree: harness-output/runs/{runId}/finish/final-tree.json
+    finishAcceptance: harness-output/runs/{runId}/finish/acceptance.json
+    compatibilitySite: harness-output/site/
+    designDna: harness-output/design-system/design-dna.md
+    tokens: harness-output/design-system/tokens.css
+    designSystemSkill: harness-output/design-system/skill/
+    report: harness-output/report.md
+
+  schemas:
+    runManifest:
+      type: object
+      required: [runId, promptHash, status, mode, budgetClass, iterationBudget, pivotBudget, currentIteration, pivotsUsed, correctionRoundsUsed, currentStep]
+      properties:
+        status: { enum: [initialising, running, halted, complete] }
+        mode: { enum: [greenfield, overhaul] }
+        budgetClass: { enum: [quick, standard, ambitious, explicit] }
+        iterationBudget: { type: integer, minimum: 1, maximum: 8 }
+        currentIteration: { type: integer, minimum: 1 }
+        finalStatus: { enum: [pending, quality-floor-met, best_available, complete-with-open-items, halted] }
+
+    roots:
+      type: object
+      required: [targetKind, repoRoot, appRoot, contextRoot, evidence]
+      properties:
+        targetKind: { enum: [local, external-url] }
+        evidence: { type: array, minItems: 1 }
+
+    capabilities:
+      type: object
+      required: [probedAt, evaluationPlan, capabilities]
+      properties:
+        evaluationPlan: { enum: [full, build-once-unselected, mechanical-review] }
+        capabilities: { type: object }
+
+    directionAssignment:
+      type: object
+      required: [mode, candidateIds, committedBeforeExplore]
+      properties:
+        mode: { enum: [user-choice, deterministic-seed, pinned-brief] }
+        candidateIds: { type: array, minItems: 1, maxItems: 3 }
+        seed: { type: [string, 'null'] }
+        assignedIndex: { type: [integer, 'null'], minimum: 1, maximum: 3 }
+        committedBeforeExplore: { const: true }
+
+    directionSelection:
+      type: object
+      required: [selectedId, method, candidateIds, assignmentPath]
+      properties:
+        method: { enum: [user, deterministic-seed, pinned-brief] }
+
+    mechanicalFindings:
+      type: object
+      required: [detector, snapshotId, generatedAt, passes, findings]
+      properties:
+        detector: { enum: [design-studio, impeccable, fallback] }
+        findings: { type: array }
+
+    observation:
+      type: object
+      required: [iteration, status, actualViewports, interactionEvidence, gateResults, zones, scores, weightedAverage, keyIssues]
+      forbidden: [decision, recommendation, trend, bestIteration]
+      properties:
+        status: { enum: [evaluated, unevaluated] }
+        scores: { type: [object, 'null'] }
+        weightedAverage: { type: [number, 'null'] }
+
+    acceptance:
+      type: object
+      required: [status, selectedTree, sourceIteration, treeManifest, serveValidated, mechanicalSnapshotId, viewportEvidence, iterationIntegrity]
+      properties:
+        status: { enum: [accepted, rejected] }
+        serveValidated: { type: boolean }
+        iterationIntegrity: { type: boolean }
+
+  agents:
+    Planner:
+      seesSource: true
+      owns: [product truth, roots evidence, surface scope, success criteria]
+      neverOwns: [aesthetic selection, workflow decision]
+    VisualDirector:
+      seesSource: false
+      seesAssignment: false
+      owns: [three equal directions, selected source-free visual contract]
+      neverOwns: [candidate ranking, implementation, workflow decision]
+    Builder:
+      seesSource: true
+      owns: [implementation, semantics, states, serve contract, fidelity evidence]
+      neverOwns: [direction replacement, completed iteration mutation, version-control actions]
+    Evaluator:
+      seesSource: false
+      seesPriorScores: false
+      owns: [browser interaction evidence, zone scores, visual critique]
+      neverOwns: [implementation advice framed as code, workflow decision]
+    Orchestrator:
+      seesSource: as-needed
+      owns: [roots, capabilities, event journal, assignment, workflow decisions, final selection, acceptance, codification]
+
+  steps:
+    - id: initialise
+      agent: Orchestrator
+      inputs: [user_prompt, existing_target, overhaul_goals, budget_override, optional_run_id]
+      actions:
+        - Generate runId from timestamp plus prompt hash unless an explicit run ID is supplied.
+        - For a new run, create the run root, run.json, empty scores.json and append an initialise completed event.
+        - Clamp explicit build budgets to 1 through 8 and record the matching pivot budget.
+      outputs: [runManifest, scores, events]
+      next: resume_validate
+
+    - id: resume_validate
+      agent: Orchestrator
+      procedure: references/runtime-integrity.md
+      actions:
+        - For a new run, append a no-op completion receipt and continue.
+        - For a resumed run, validate prompt hash, roots, capabilities, event order, completed artifacts and iteration immutability.
+        - Continue from the first step without a valid completed receipt; never rerun a completed build in the same iteration.
+      next: resolve_roots
+
+    - id: resolve_roots
+      agent: Orchestrator
+      procedure: references/runtime-integrity.md
+      actions:
+        - Resolve repoRoot, appRoot and contextRoot from explicit target, serve contract, framework configuration, routes and repository evidence.
+        - Write roots.json with target kind and evidence; do not use package-manager naming as sole proof.
+      outputs: [roots]
+      next: probe_capabilities
+
+    - id: probe_capabilities
+      agent: Orchestrator
+      procedure: references/runtime-integrity.md
+      actions:
+        - Probe required and optional tools and write evidence for every capability.
+        - Set evaluationPlan full only when the target can run and both browser viewports can be attempted.
+        - When Studio cannot make a visual decision, set build-once-unselected and clamp iterationBudget to 1.
+      outputs: [capabilities, runManifest]
+      next: plan
+
+    - id: plan
+      agent: Planner
+      inputs: [user_prompt, roots, capabilities, PRODUCT.md, optional COPY.md, optional DESIGN.md, repository evidence]
+      actions:
+        - Inspect before asking; confirm only material gaps.
+        - Create or update durable product truth without inventing claims.
+        - Classify the surface as persuade, operate, read or experience.
+        - Write spec.md, sprint-contract.md and surface-brief.md with preservation constraints, proof and copy baseline when text changes.
+      outputs: [product, spec, sprintContract, surfaceBrief]
+      next: baseline
+
+    - id: baseline
+      agent: Orchestrator
+      when: mode == overhaul
+      procedure: references/overhaul.md
+      actions:
+        - Serve the incumbent from appRoot and capture verified desktop and mobile renders plus interaction notes.
+        - Record capture limits instead of fabricating evidence.
+      outputs: [baseline]
+      next: prepare_direction_assignment
+      otherwise: prepare_direction_assignment
+
+    - id: prepare_direction_assignment
+      agent: Orchestrator
+      procedure: references/runtime-integrity.md
+      actions:
+        - Fix candidate IDs before candidate generation.
+        - For unattended work, derive and record a stable seed and assignedIndex before directions.md exists.
+        - For user choice, record null seed and index; for an exact pinned direction, record one candidate and index 1.
+        - Exclude assignment seed and index from Visual Director context.
+      outputs: [directionAssignment]
+      next: explore_direction
+
+    - id: explore_direction
+      agent: VisualDirector
+      when: directionAssignment.mode != pinned-brief
+      inputs: [product, copy constraints, spec, sprintContract, surfaceBrief, baseline screenshots, rejected direction summaries on pivot]
+      procedure: agents/design-agent.md
+      actions:
+        - Produce exactly direction-1, direction-2 and direction-3 as equally detailed, viable and materially different candidates.
+        - Do not rank, recommend or infer the hidden assignment.
+      outputs: [directions]
+      next: select_direction
+      otherwise: select_direction
+
+    - id: select_direction
+      agent: Orchestrator
+      inputs: [directionAssignment, optional directions, optional user answer, exact pinned direction]
+      actions:
+        - User choice selects the explicit answer; deterministic selection uses the precommitted index; pinned brief selects its sole candidate.
+        - Write direction-selection.json and selected-direction.md with source-free thesis, viewport, path, grammar, responsive intent, signature moment, risk and anti-goals.
+      outputs: [directionSelection, selectedDirection]
+      next: direct
+
+    - id: direct
+      agent: VisualDirector
+      inputs: [selectedDirection, product, copy constraints, sprintContract, surfaceBrief, current screenshots and visual-only critique on REFINE]
+      actions:
+        - Expand the selected candidate into design-description.md using visual and experiential language only.
+        - On REFINE preserve the world; fix observed experience without replacing the thesis.
+      outputs: [designDescription]
+      next: build
+
+    - id: build
+      agent: Builder
+      inputs: [roots, designDescription, spec, sprintContract, surfaceBrief, source substrate or previous iteration on REFINE]
+      procedure: references/generation.md
+      actions:
+        - Implement only in the current immutable iteration tree.
+        - Preserve product facts, claim boundaries and working behaviour; add required semantics, states, responsiveness and reduced motion.
+        - Validate serve.json from appRoot and record every material instruction in design-flags.json.
+      outputs: [site, serveConfig, designFlags]
+      next: mechanical_preflight
+
+    - id: mechanical_preflight
+      agent: Orchestrator
+      inputs: [roots, capabilities, site, serveConfig, DESIGN.md, pinned brief]
+      procedure: references/quality-gates.md
+      actions:
+        - Collect current source facts and browser facts through the host capabilities; record unavailable evidence as incomplete passes with exact reasons.
+        - Run the installed local mechanical runtime and write a complete current snapshot with stable signatures. Previous open findings do not remain open when absent.
+        - Resolve primary findings through fixes or exact authority-backed waivers; incomplete evidence never becomes a clean pass.
+      outputs: [mechanicalFindings]
+      branches:
+        - when: capabilities.evaluationPlan == build-once-unselected
+          next: halt_unverified
+        - when: default
+          next: evaluate
+
+    - id: halt_unverified
+      agent: Orchestrator
+      actions:
+        - Preserve the single build and current mechanical snapshot.
+        - Set finalStatus halted and terminationReason browser-unavailable.
+        - Do not select a winner, fabricate scores or codify a visual system.
+      termination: halted
+
+    - id: evaluate
+      agent: Evaluator
+      inputs: [live URL, product purpose, audience, surface success criteria, current mechanical summary]
+      explicitlyExcluded: [source, designDescription, designFlags, selectedDirection, assignment, prior observations, prior scores, implementation effort]
+      procedure: agents/evaluator.md
+      actions:
+        - Verify actual 1440x900 and 390x844 viewport widths, test meaningful controls and states, and capture browser evidence.
+        - Write evaluated observation and critique, or an unevaluated observation with null scores and exact limitation.
+      outputs: [screenshots, observation, critique]
+      next: decide
+
+    - id: decide
+      agent: Orchestrator
+      inputs: [observation, mechanicalFindings, scoreHistory, runManifest, directionSelection]
+      orderedDecisionTable:
+        - { when: browser evaluation incomplete or either required viewport missing, decision: HALT, terminationReason: browser-unavailable }
+        - { when: server or iteration artifacts invalid, decision: HALT, terminationReason: invalid-artifact }
+        - { when: no open primary finding and every score meets shipFloor, decision: SHIP, terminationReason: quality-floor-met }
+        - { when: open primary findings and N < iterationBudget, decision: REFINE, terminationReason: continue-current-direction }
+        - { when: originality <= 4 and selection is not pinned and pivots remain and N < iterationBudget, decision: PIVOT, terminationReason: replace-direction }
+        - { when: originality stayed below 6 within 0.5 for two evaluated iterations and pivots remain and N < iterationBudget, decision: PIVOT, terminationReason: replace-direction }
+        - { when: N >= iterationBudget, decision: SHIP, terminationReason: budget-exhausted }
+        - { when: default, decision: REFINE, terminationReason: continue-current-direction }
+      actions:
+        - Append observation summary and decision as separate evidence records; recompute best iteration by the final tier rules.
+      transitions: { REFINE: prepare_refine_iteration, PIVOT: prepare_pivot_iteration, SHIP: finish_select, HALT: halt }
+
+    - id: prepare_refine_iteration
+      agent: Orchestrator
+      actions:
+        - Increment the iteration and create a new tree without modifying the completed one.
+        - Copy assignment, candidate set, selection and selected direction unchanged; pass screenshots and visual-only critique to direct.
+      next: direct
+
+    - id: prepare_pivot_iteration
+      agent: Orchestrator
+      actions:
+        - Increment iteration and pivotsUsed; preserve rejected direction summary, scores and visual lessons.
+        - Do not copy the rejected assignment or selection into the new iteration.
+      next: prepare_direction_assignment
+
+    - id: finish_select
+      agent: Orchestrator
+      actions:
+        - Tier 1 contains evaluated, mechanically clean iterations meeting every ship floor.
+        - Tier 2 contains evaluated, mechanically clean iterations. Otherwise use all evaluated immutable iterations and label best_available.
+        - Within the active tier rank by weighted average, minimum criterion, functionality, then latest iteration.
+        - Copy the selected site, rewritten serve contract and its own selected-direction.md into finish; recapture both viewports.
+      outputs: [finishSelection, finishSelectedSite, finishSelectedServeConfig, finishSelectedDirection]
+      next: finish_review
+
+    - id: finish_review
+      agent: Evaluator
+      freshContext: true
+      inputs: [original prompt, confirmed purpose and constraints, surface brief, finish selected direction, live selected build, fresh screenshots, current mechanical summary]
+      explicitlyExcluded: [source, full designDescription, prior scores, prior critiques, implementation history]
+      actions:
+        - Return pass or hold with only material defects in comprehension, usability, responsive integrity, accessibility, coherence or direction fidelity.
+      outputs: [finish/verdict.json, finish/critique.md]
+      next: finish_correct_or_finalise
+
+    - id: finish_correct_or_finalise
+      agent: Orchestrator
+      branches:
+        - { when: verdict is pass or material findings empty, next: finalise }
+        - { when: verdict is hold and correction rounds remain, next: finish_fix }
+        - { when: default, next: finalise_with_open_items }
+
+    - id: finish_fix
+      agent: Builder
+      actions:
+        - Copy selected-site to corrected-site before editing and rewrite corrected-serve.json to the corrected tree.
+        - Apply one grouped correction batch without changing direction.
+        - Validate the corrected server, rerun a full current mechanical snapshot and recapture both viewports.
+        - Ask a fresh Evaluator to classify each original finding, rescore all criteria and state material regression; null all comparison fields when either viewport is missing.
+      outputs: [finishCorrectedSite, finishCorrectedServeConfig, finish/corrected-mechanical-findings.json, finish/correction-verdict.json]
+      next: finish_correction_decide
+
+    - id: finish_correction_decide
+      agent: Orchestrator
+      branches:
+        - when: all original findings resolved, corrected snapshot clean, both viewports verified, no material regression and required floors preserved
+          next: finalise
+        - when: default
+          next: finalise_with_open_items
+      actions:
+        - Write final-tree.json naming corrected-site only when the full acceptance rule passes; otherwise retain selected-site.
+
+    - id: finalise_with_open_items
+      agent: Orchestrator
+      actions:
+        - Preserve unresolved finish findings and rejected correction evidence.
+        - Set finalStatus complete-with-open-items and retain selected-site when correction was not accepted.
+      next: finalise
+
+    - id: finalise
+      agent: Orchestrator
+      actions:
+        - Validate final-tree.json or default to selected-site; never choose corrected-site from directory existence.
+        - Record final status from selection tier and accepted correction evidence, without copying to compatibilitySite yet.
+      next: accept
+
+    - id: accept
+      agent: Orchestrator
+      procedure: references/runtime-integrity.md
+      actions:
+        - Verify final-tree agreement, source iteration, rewritten serve contract, measured viewports, current mechanical snapshot, open-item status, deterministic tree manifest and iteration immutability.
+        - Write finish/acceptance.json as accepted only when every postcondition passes.
+      outputs: [finishAcceptance]
+      branches:
+        - { when: acceptance.status == accepted, next: codify }
+        - { when: default, next: halt }
+
+    - id: codify
+      agent: Orchestrator
+      actions:
+        - Replace harness-output/site only from the accepted final tree.
+        - Ask Visual Director for design DNA from final screenshots and the selected source-free contract.
+        - Ask Builder for canonical tokens from final source; write or update DESIGN.md with accepted provenance.
+      outputs: [compatibilitySite, designDna, tokens, designSystemSkill, DESIGN.md]
+      next: report
+
+    - id: report
+      agent: Orchestrator
+      actions:
+        - Write report.md with roots, capabilities, assumptions, assignment, iteration history, decisions, selection, finish verdict, acceptance, open items and design-system outputs.
+        - Set run status complete, append the final completion event and record final paths.
+      outputs: [report, runManifest, events]
+      termination: complete
+
+    - id: halt
+      agent: Orchestrator
+      actions:
+        - Preserve all completed artifacts, append the exact failed contract and set finalStatus halted.
+        - Do not invent a visual score, winner or accepted tree.
+      termination: halted

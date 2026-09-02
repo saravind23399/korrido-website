@@ -1,78 +1,61 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, Manrope } from 'next/font/google';
+import { IBM_Plex_Sans, Space_Mono } from 'next/font/google';
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
+const body = IBM_Plex_Sans({
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
+  variable: '--font-body',
   display: 'swap',
 });
 
-const manrope = Manrope({
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-manrope',
+const display = Space_Mono({
+  weight: ['400', '700'],
   subsets: ['latin'],
+  variable: '--font-display',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Korrido — India's First Full-Stack Ride Hailing Platform",
-  description:
-    "One subscription. Every layer. Fleet management, smart dispatch, passenger & driver apps, and in-cab entertainment — all in one flat subscription. Start from ₹799/vehicle/month.",
-  keywords: [
-    'Ride Hailing Platform',
-    'Fleet Management',
-    'Dispatch Engine',
-    'Passenger App',
-    'Driver App',
-    'In-Cab Entertainment',
-    'In-Cab Digital',
-    'India Ride Hailing',
-  ],
-  authors: [{ name: 'Korrido' }],
+  metadataBase: new URL('https://korrido.com'),
+  title: { default: 'Korrido · In-Cab Advertising', template: '%s · Korrido' },
+  description: 'Premium in-cab digital advertising for Indian cities. Captive attention, GPS-verified impressions, live in 48 hours.',
+  alternates: { canonical: '/' },
   openGraph: {
-    title: "Korrido — India's First Full-Stack Ride Hailing Platform",
-    description:
-      'One subscription covers fleet management, smart dispatch, passenger & driver apps, and in-cab entertainment. Go live in one day.',
-    url: 'https://korrido.com',
+    title: 'Korrido · In-Cab Advertising',
+    description: 'Your next customer is sitting in a cab. Reach them for 20-30 minutes of undivided attention.',
+    url: '/',
     siteName: 'Korrido',
-    images: [
-      {
-        url: 'https://korrido.com/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Korrido — Full-Stack Ride Hailing Platform',
-      },
-    ],
-    locale: 'en_IN',
     type: 'website',
+    locale: 'en_IN',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Korrido — India's First Full-Stack Ride Hailing Platform",
-    description:
-      'One subscription. Every layer. Go live in one day from ₹799/vehicle/month.',
-    images: ['https://korrido.com/og-image.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+const organization = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://korrido.com/#organization',
+      name: 'Korrido',
+      alternateName: ['korrido'],
+      url: 'https://korrido.com',
+      logo: { '@type': 'ImageObject', url: 'https://korrido.com/images/korrido-light.svg' },
+      description: 'Digital in-cab advertising on HD screens inside city cabs with live impression tracking.',
+      address: { '@type': 'PostalAddress', streetAddress: 'Plot No 317/1, 8th Cross Road, Ganapathy Nagar, Peenya', addressLocality: 'Bengaluru', addressRegion: 'Karnataka', postalCode: '560058', addressCountry: 'IN' },
+      areaServed: { '@type': 'City', name: 'Bengaluru' },
+    },
+    { '@type': 'WebSite', '@id': 'https://korrido.com/#website', url: 'https://korrido.com', name: 'Korrido', publisher: { '@id': 'https://korrido.com/#organization' }, inLanguage: 'en-IN' },
+  ],
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${manrope.variable}`}>
-      <body>
-        <main>{children}</main>
-        <Analytics />
-        <SpeedInsights />
+    <html lang="en" className={`${body.variable} ${display.variable}`} data-scroll-behavior="smooth">
+      <body className={`${body.className} min-h-screen bg-background text-foreground`}>
+        <div className="flex min-h-screen flex-col">{children}</div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
       </body>
     </html>
   );

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "website-cloner",
+  "owner": "horuz-ai",
+  "repo": "claude-plugins",
+  "path": "plugins/website-cloner/skills/website-cloner",
+  "branch": "main",
+  "sha": "de0f9d2ba51d25cf6a9d1615d92270543e0c6597",
+  "source": "manual"
+}
