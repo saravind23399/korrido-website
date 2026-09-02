@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ArrowRight } from './Icons';
 
 const navItems = [
   ['Home', '/'],
@@ -30,7 +30,7 @@ function ScrollProgress() {
         const scroll = window.scrollY;
         const doc = document.documentElement;
         const total = doc.scrollHeight - window.innerHeight;
-        setProgress(total > 0 ? (scroll / total) * 100 : 0);
+        setProgress(total > 0 ? scroll / total : 0);
       });
     };
 
@@ -44,7 +44,7 @@ function ScrollProgress() {
 
   return (
     <div className="progress-bar" aria-hidden="true">
-      <span style={{ width: `${progress}%` }} />
+      <span style={{ transform: `scaleX(${progress})` }} />
     </div>
   );
 }
@@ -71,26 +71,41 @@ function FloatingCTA() {
   return (
     <Link
       href="/apply"
-      className="floating-cta"
-      style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }}
+      className="floating-cta btn-magnetic btn-primary"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(16px)', filter: visible ? 'blur(0)' : 'blur(4px)' }}
       aria-label="Reserve a zone"
     >
-      Reserve a zone →
+      <span className="tracking-[.12em]">Reserve a zone</span>
+      <span className="btn-icon">
+        <ArrowRight className="h-3.5 w-3.5" />
+      </span>
     </Link>
   );
 }
 
-function Logo() {
+function Hamburger({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
-    <Link href="/" aria-label="Korrido home" className="fixed left-4 top-4 z-50 lg:left-6 lg:top-6">
-      <Image src="/images/korrido-light.svg" alt="Korrido" width={116} height={34} className="h-8 w-auto" priority unoptimized />
-    </Link>
+    <button
+      type="button"
+      onClick={onClick}
+      className="grid h-10 w-10 place-items-center rounded-full lg:hidden"
+      style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)' }}
+      aria-label={open ? 'Close menu' : 'Open menu'}
+      aria-expanded={open}
+    >
+      <span className="relative flex h-3 w-4 flex-col justify-center">
+        <span className="absolute h-[1px] w-4 bg-foreground transition-all duration-500" style={{ top: open ? '50%' : '0%', transform: open ? 'translateY(-50%) rotate(45deg)' : 'translateY(0) rotate(0deg)', transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }} />
+        <span className="absolute h-[1px] w-4 bg-foreground transition-opacity duration-300" style={{ opacity: open ? 0 : 1, transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }} />
+        <span className="absolute h-[1px] w-4 bg-foreground transition-all duration-500" style={{ top: open ? '50%' : '100%', transform: open ? 'translateY(-50%) rotate(-45deg)' : 'translateY(-100%) rotate(0deg)', transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }} />
+      </span>
+    </button>
   );
 }
 
-function CinematicNav() {
+function TopNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden';
@@ -103,59 +118,98 @@ function CinematicNav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <nav className="bottom-nav hidden lg:flex" aria-label="Site navigation">
-        {navItems.map(([label, href]) => (
-          <Link key={href} href={href} className={pathname === href ? 'active' : ''} aria-current={pathname === href ? 'page' : undefined}>
-            {label}
-          </Link>
-        ))}
-      </nav>
-
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="fixed bottom-4 right-4 z-[60] grid h-11 w-11 place-items-center rounded-full bg-surface/90 backdrop-blur border border-border text-foreground flex lg:hidden"
-        aria-label="Open menu"
-        aria-expanded={open}
+      {/* Desktop megabar */}
+      <header
+        className="fixed inset-x-0 top-0 z-[60] hidden lg:block"
+        style={{
+          transition: 'background 0.45s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.45s cubic-bezier(0.32, 0.72, 0, 1), backdrop-filter 0.45s cubic-bezier(0.32, 0.72, 0, 1)',
+          background: scrolled ? 'color-mix(in srgb, var(--color-background) 75%, transparent)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(24px)' : 'none',
+          borderBottom: scrolled ? '1px solid color-mix(in srgb, var(--color-foreground) 6%, transparent)' : '1px solid transparent',
+        }}
       >
-        <Menu className="h-5 w-5" />
-      </button>
-
-      <div className={`fixed inset-0 z-[70] ${open ? 'pointer-events-auto' : 'pointer-events-none'}`} aria-hidden={!open}>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className={`absolute inset-0 bg-background/95 backdrop-blur transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
-          aria-label="Close menu"
-          tabIndex={open ? 0 : -1}
-        />
-        <div className={`absolute inset-0 flex flex-col items-center justify-center gap-6 transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}>
-          <Link href="/" onClick={() => setOpen(false)} className="fixed left-6 top-6">
-            <Image src="/images/korrido-light.svg" alt="Korrido" width={116} height={34} className="h-8 w-auto" unoptimized />
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-8 py-4">
+          <Link href="/" aria-label="Korrido home" className="flex items-center">
+            <Image src="/images/korrido-light.svg" alt="Korrido" width={116} height={34} className="h-8 w-auto" priority unoptimized />
           </Link>
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="fixed right-6 top-6 grid h-11 w-11 place-items-center rounded-full border border-border bg-surface text-foreground"
-            aria-label="Close menu"
-          >
-            <X className="h-5 w-5" />
-          </button>
-          <div className="flex flex-col items-center gap-5">
+
+          <nav className="flex items-center gap-1 rounded-full p-1" aria-label="Site navigation" style={{ background: 'color-mix(in srgb, var(--color-foreground) 4%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent)' }}>
             {navItems.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
-                onClick={() => setOpen(false)}
-                className={`font-mono text-3xl font-bold uppercase tracking-wide transition-colors ${pathname === href ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+                className={`relative rounded-full px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.09em] transition-colors duration-500 ${pathname === href ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)', background: pathname === href ? 'color-mix(in srgb, var(--color-primary) 10%, transparent)' : 'transparent' }}
                 aria-current={pathname === href ? 'page' : undefined}
               >
                 {label}
               </Link>
             ))}
+          </nav>
+
+          <Link href="/apply" className="btn-magnetic btn-primary" style={{ padding: '0.6rem 1.1rem' }}>
+            <span>Reserve</span>
+            <span className="btn-icon"><ArrowRight className="h-3 w-3" /></span>
+          </Link>
+        </div>
+      </header>
+
+      {/* Mobile top bar */}
+      <header
+        className="fixed inset-x-0 top-0 z-[60] lg:hidden"
+        style={{
+          transition: 'background 0.45s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.45s cubic-bezier(0.32, 0.72, 0, 1), backdrop-filter 0.45s cubic-bezier(0.32, 0.72, 0, 1)',
+          background: scrolled ? 'color-mix(in srgb, var(--color-background) 80%, transparent)' : 'color-mix(in srgb, var(--color-background) 40%, transparent)',
+          backdropFilter: scrolled ? 'blur(20px)' : 'blur(8px)',
+          borderBottom: scrolled ? '1px solid color-mix(in srgb, var(--color-foreground) 6%, transparent)' : '1px solid transparent',
+        }}
+      >
+        <div className="flex items-center justify-between px-4 py-3">
+          <Link href="/" aria-label="Korrido home" className="flex items-center" onClick={() => setOpen(false)}>
+            <Image src="/images/korrido-light.svg" alt="Korrido" width={100} height={30} className="h-7 w-auto" priority unoptimized />
+          </Link>
+          <Hamburger open={open} onClick={() => setOpen(!open)} />
+        </div>
+      </header>
+
+      {/* Mobile overlay menu */}
+      <div className={`fixed inset-0 z-[70] lg:hidden ${open ? 'pointer-events-auto nav-open' : 'pointer-events-none'}`} aria-hidden={!open} style={{ transition: 'opacity 0.45s cubic-bezier(0.32, 0.72, 0, 1)' }}>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className={`absolute inset-0 transition-opacity duration-500 ${open ? 'opacity-100' : 'opacity-0'}`}
+          style={{ background: 'rgba(20, 17, 14, 0.92)', backdropFilter: 'blur(28px)', transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}
+          aria-label="Close menu"
+          tabIndex={open ? 0 : -1}
+        />
+        <div className={`absolute inset-0 flex flex-col items-center justify-center gap-6 transition-opacity duration-500 ${open ? 'opacity-100' : 'opacity-0'}`} style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>
+          <div className="flex flex-col items-center gap-5">
+            {navItems.map(([label, href], i) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`nav-link-stagger font-mono text-3xl font-bold uppercase tracking-wide transition-colors ${pathname === href ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+                aria-current={pathname === href ? 'page' : undefined}
+                style={{ '--i': i } as React.CSSProperties}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
+          <Link href="/apply" onClick={() => setOpen(false)} className="nav-link-stagger btn-magnetic btn-primary mt-4" style={{ '--i': navItems.length } as React.CSSProperties}>
+            <span>Reserve a zone</span>
+            <span className="btn-icon"><ArrowRight className="h-3.5 w-3.5" /></span>
+          </Link>
         </div>
       </div>
     </>
@@ -185,13 +239,13 @@ function LiveElapsed() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-background py-16 text-muted-foreground">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-48 w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
+    <footer className="relative overflow-hidden border-t border-white/5 bg-background py-24 text-muted-foreground">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[700px] -translate-x-1/2 rounded-full blur-3xl" style={{ background: 'color-mix(in srgb, var(--color-primary) 8%, transparent)' }} aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-sm">
             <Image src="/images/korrido-dark.svg" alt="Korrido" width={140} height={40} className="mb-4 h-8 w-auto" unoptimized />
-            <p className="text-sm leading-relaxed text-foreground/80">Premium in-cab digital advertising for Indian cities. Captive attention, GPS-verified, live in 48 hours.</p>
+            <p className="text-sm leading-relaxed text-foreground/70">Premium in-cab digital advertising for Indian cities. Captive attention, GPS-verified, live in 48 hours.</p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <FooterColumn title="Product" links={[
@@ -209,13 +263,13 @@ export function SiteFooter() {
             ]} />
             <FooterColumn title="Contact" links={[
               ['team@korrido.com', 'mailto:team@korrido.com'],
-              [' Bengaluru, Karnataka', '/'],
+              ['Bengaluru, Karnataka', '/'],
             ]} />
           </div>
         </div>
-        <div className="mt-14 flex flex-col gap-4 border-t border-border pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-20 flex flex-col gap-4 border-t border-white/5 pt-10 text-sm sm:flex-row sm:items-center sm:justify-between">
           <span className="text-muted-foreground">© 2026 Korrido. All rights reserved.</span>
-          <span className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
             <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
             <span className="font-mono text-foreground">LIVE</span>
             <LiveElapsed />
@@ -228,9 +282,9 @@ export function SiteFooter() {
 
 function FooterColumn({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
   return (
-    <div>
-      <p className="mb-3 font-mono text-xs font-bold uppercase tracking-widest text-foreground">{title}</p>
-      <ul className="space-y-2.5 text-sm">{links.map(([label, href]) => <li key={label}><Link href={href} className="text-muted-foreground hover:text-foreground">{label}</Link></li>)}</ul>
+    <div className="border-l border-white/5 pl-5">
+      <p className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">{title}</p>
+      <ul className="space-y-3 text-sm">{links.map(([label, href]) => <li key={label}><Link href={href} className="text-muted-foreground transition-colors duration-500 hover:text-foreground" style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}>{label}</Link></li>)}</ul>
     </div>
   );
 }
@@ -238,12 +292,12 @@ function FooterColumn({ title, links }: { title: string; links: readonly (readon
 export function MarketingShell({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <div className="mesh-bg" aria-hidden="true" />
       <ScrollProgress />
-      <Logo />
+      <TopNav />
       <FloatingCTA />
-      <main className="snap-y snap-mandatory">{children}</main>
+      <main className="snap-y snap-proximity">{children}</main>
       <SiteFooter />
-      <CinematicNav />
     </>
   );
 }
