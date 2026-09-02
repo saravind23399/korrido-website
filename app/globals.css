@@ -380,34 +380,6 @@ button {
   .floating-cta { bottom: 2rem; right: 2rem; }
 }
 
-/* Scroll cue */
-@keyframes scroll-cue {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(12px); opacity: 0.4; }
-}
-
-.scroll-cue {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-muted-foreground);
-}
-
-.scroll-cue .line {
-  width: 1px;
-  height: 3rem;
-  background: color-mix(in srgb, var(--color-foreground) 20%, transparent);
-}
-
-.scroll-cue .dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 9999px;
-  background: currentColor;
-  animation: scroll-cue 2.2s var(--ease-fluid) infinite;
-}
-
 /* Nav stagger */
 .nav-link-stagger {
   opacity: 0;

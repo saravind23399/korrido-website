@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { ArrowRight } from './Icons';
 
 const navItems = [
@@ -17,34 +18,11 @@ const navItems = [
 ] as const;
 
 function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const scroll = window.scrollY;
-        const doc = document.documentElement;
-        const total = doc.scrollHeight - window.innerHeight;
-        setProgress(total > 0 ? scroll / total : 0);
-      });
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
+  const { scrollYProgress } = useScroll();
 
   return (
     <div className="progress-bar" aria-hidden="true">
-      <span style={{ transform: `scaleX(${progress})` }} />
+      <motion.span style={{ scaleX: scrollYProgress }} />
     </div>
   );
 }
@@ -106,6 +84,9 @@ function TopNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 24));
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden';
@@ -117,13 +98,6 @@ function TopNav() {
       window.removeEventListener('keydown', close);
     };
   }, [open]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   return (
     <>
@@ -216,27 +190,6 @@ function TopNav() {
   );
 }
 
-function LiveElapsed() {
-  const [elapsed, setElapsed] = useState('');
-
-  useEffect(() => {
-    const launched = new Date('2026-08-20T05:00:00Z').getTime();
-    const update = () => {
-      const seconds = Math.max(0, Math.floor((Date.now() - launched) / 1000));
-      const days = Math.floor(seconds / 86400);
-      const hours = Math.floor((seconds % 86400) / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const secs = seconds % 60;
-      setElapsed(`T+ ${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`);
-    };
-    update();
-    const timer = window.setInterval(update, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  return <span suppressHydrationWarning aria-label="time since launch" className="font-mono text-amber-400">{elapsed}</span>;
-}
-
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-background py-24 text-muted-foreground">
@@ -269,11 +222,6 @@ export function SiteFooter() {
         </div>
         <div className="mt-20 flex flex-col gap-4 border-t border-white/5 pt-10 text-sm sm:flex-row sm:items-center sm:justify-between">
           <span className="text-muted-foreground">© 2026 Korrido. All rights reserved.</span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-            <span className="font-mono text-foreground">LIVE</span>
-            <LiveElapsed />
-          </span>
         </div>
       </div>
     </footer>

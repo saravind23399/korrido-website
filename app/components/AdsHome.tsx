@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'motion/react';
-import { useState } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { useRef, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, MapPin } from './Icons';
 
 const steps = [
@@ -28,6 +28,7 @@ const faqs = [
 ] as const;
 
 const transition = { duration: 0.9, ease: [0.32, 0.72, 0, 1] as const };
+const stagger = { duration: 0.7, ease: [0.32, 0.72, 0, 1] as const };
 
 function Scene({
   children,
@@ -35,17 +36,22 @@ function Scene({
   overlay = true,
   id,
   className = '',
+  parallax = false,
 }: {
   children: React.ReactNode;
   image?: string;
   overlay?: boolean;
   id?: string;
   className?: string;
+  parallax?: boolean;
 }) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], parallax && !reduce ? ['-8%', '8%'] : ['0%', '0%']);
 
   return (
-    <section id={id} className={`scene ${className}`} data-scene>
+    <section ref={ref} id={id} className={`scene ${className}`} data-scene>
       {image && (
         <motion.div
           initial={reduce ? false : { scale: 1.1, opacity: 0 }}
@@ -53,6 +59,7 @@ function Scene({
           viewport={{ once: true }}
           transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
           className="scene-backdrop"
+          style={{ y }}
         >
           <Image src={image} alt="" fill sizes="100vw" className="object-cover" priority />
         </motion.div>
@@ -72,13 +79,14 @@ function Scene({
 }
 
 export default function AdsHome() {
+  const reduce = useReducedMotion();
   const [openFaq, setOpenFaq] = useState(0);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
   return (
     <>
-      <Scene id="hero" image="/images/cabin.jpg" className="items-end">
+      <Scene id="hero" image="/images/cabin.jpg" className="items-end" parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
           <h1 className="display-headline max-w-4xl text-foreground">
             The attention is already there.
@@ -95,11 +103,6 @@ export default function AdsHome() {
               <span>See the film</span>
               <span className="btn-icon"><ArrowRight className="h-3.5 w-3.5" /></span>
             </Link>
-          </div>
-          <div className="scroll-cue mt-20">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em]">Scroll</span>
-            <div className="line" />
-            <div className="dot" />
           </div>
         </div>
       </Scene>
@@ -123,20 +126,27 @@ export default function AdsHome() {
         </div>
       </Scene>
 
-      <Scene id="medium" image="/images/cabin.jpg" overlay>
+      <Scene id="medium" image="/images/cabin.jpg" overlay parallax>
         <div className="flex min-h-[80dvh] w-full flex-col items-center justify-center text-center">
           <h2 className="display-headline max-w-5xl text-foreground">The last undivided surface.</h2>
           <p className="body-copy mx-auto mt-6 max-w-2xl text-foreground/80">
             No swipe. No skip. No ad blocker. A screen in the passenger&apos;s direct line of sight for the whole ride.
           </p>
           <div className="mt-16 grid w-full max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
-            {stats.map(([stat, label]) => (
-              <div key={stat} className="bezel-card">
+            {stats.map(([stat, label], i) => (
+              <motion.div
+                key={stat}
+                initial={reduce ? false : { opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ ...stagger, delay: i * 0.08 }}
+                className="bezel-card"
+              >
                 <div className="bezel-card-inner p-5 text-center">
                   <p className="font-mono text-lg font-bold uppercase tracking-wide text-foreground">{stat}</p>
                   <p className="mt-2 text-[11px] uppercase tracking-[0.15em] text-muted-foreground">{label}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -146,8 +156,15 @@ export default function AdsHome() {
         <div className="flex min-h-[80dvh] w-full flex-col justify-center">
           <h2 className="section-headline text-foreground">From brief to live in 48 hours.</h2>
           <div className="mt-12 max-w-4xl">
-            {steps.map(([num, title, desc]) => (
-              <div key={title} className="bezel-card mb-3">
+            {steps.map(([num, title, desc], i) => (
+              <motion.div
+                key={title}
+                initial={reduce ? false : { opacity: 0, x: -32 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ ...stagger, delay: i * 0.12 }}
+                className="bezel-card mb-3"
+              >
                 <div className="bezel-card-inner flex items-baseline gap-6 p-6">
                   <span className="font-mono text-4xl font-bold text-primary">{num}</span>
                   <div>
@@ -155,7 +172,7 @@ export default function AdsHome() {
                     <p className="body-copy mt-2 text-muted-foreground">{desc}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -183,30 +200,30 @@ export default function AdsHome() {
           <h2 className="section-headline max-w-3xl text-foreground">Two founders, one mission.</h2>
           <p className="body-copy mt-4 max-w-2xl text-muted-foreground">A builder and an operator. Engineering depth paired with product and compliance.</p>
           <div className="mt-14 grid gap-5 lg:grid-cols-2">
-            <div className="bezel">
-              <div className="bezel-inner p-8">
-                <div className="flex items-start gap-5">
-                  <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full font-mono text-3xl font-bold text-foreground" style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)' }}>AS</span>
-                  <div>
-                    <h3 className="font-mono text-lg font-bold uppercase tracking-wide text-foreground">Aravind S</h3>
-                    <p className="text-sm font-medium text-primary">Co-Founder & Engineering</p>
-                    <p className="body-copy mt-3 text-sm text-muted-foreground">AI-native engineering leader. Scaled teams at Anthriq. Shipped compliance products at RADICALi. Builds honest systems.</p>
+            {[
+              ['AS', 'Aravind S', 'Co-Founder & Engineering', 'AI-native engineering leader. Scaled teams at Anthriq. Shipped compliance products at RADICALi. Builds honest systems.'],
+              ['VP', 'Vishal Prathush R', 'Co-Founder & Product', 'Product and compliance depth from Stripe, PwC, and Amazon. Keeps Korrido as principled as the product.'],
+            ].map(([initials, name, role, bio], i) => (
+              <motion.div
+                key={name}
+                initial={reduce ? false : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ ...stagger, delay: i * 0.15 }}
+                className="bezel"
+              >
+                <div className="bezel-inner p-8">
+                  <div className="flex items-start gap-5">
+                    <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full font-mono text-3xl font-bold text-foreground" style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)' }}>{initials}</span>
+                    <div>
+                      <h3 className="font-mono text-lg font-bold uppercase tracking-wide text-foreground">{name}</h3>
+                      <p className="text-sm font-medium text-primary">{role}</p>
+                      <p className="body-copy mt-3 text-sm text-muted-foreground">{bio}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="bezel">
-              <div className="bezel-inner p-8">
-                <div className="flex items-start gap-5">
-                  <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full font-mono text-3xl font-bold text-foreground" style={{ background: 'color-mix(in srgb, var(--color-foreground) 5%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent)' }}>VP</span>
-                  <div>
-                    <h3 className="font-mono text-lg font-bold uppercase tracking-wide text-foreground">Vishal Prathush R</h3>
-                    <p className="text-sm font-medium text-primary">Co-Founder & Product</p>
-                    <p className="body-copy mt-3 text-sm text-muted-foreground">Product and compliance depth from Stripe, PwC, and Amazon. Keeps Korrido as principled as the product.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </Scene>

@@ -23,7 +23,6 @@ const money = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR
 function StepTitle({ step, total }: { step: number; total: number }) {
   return (
     <div className="mb-8">
-      <p className="chapter-marker mb-2">Step {step} / {total}</p>
       <div className="h-1 w-full overflow-hidden rounded-full bg-surface-2">
         <motion.div className="h-full bg-primary" style={{ transformOrigin: 'left', transform: `scaleX(${step / total})` }} />
       </div>

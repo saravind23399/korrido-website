@@ -2,16 +2,21 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 import { ArrowRight } from './Icons';
 
 const transition = { duration: 0.9, ease: [0.32, 0.72, 0, 1] as const };
+const stagger = { duration: 0.7, ease: [0.32, 0.72, 0, 1] as const };
 
-function Scene({ children, image, overlay = true, id, className = '' }: { children: React.ReactNode; image?: string; overlay?: boolean; id?: string; className?: string }) {
+function Scene({ children, image, overlay = true, id, className = '', parallax = false }: { children: React.ReactNode; image?: string; overlay?: boolean; id?: string; className?: string; parallax?: boolean }) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], parallax && !reduce ? ['-8%', '8%'] : ['0%', '0%']);
 
   return (
-    <section id={id} className={`scene ${className}`} data-scene>
+    <section ref={ref} id={id} className={`scene ${className}`} data-scene>
       {image && (
         <motion.div
           initial={reduce ? false : { scale: 1.1, opacity: 0 }}
@@ -19,7 +24,7 @@ function Scene({ children, image, overlay = true, id, className = '' }: { childr
           viewport={{ once: true }}
           transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
           className="scene-backdrop"
-          style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center', y }}
         />
       )}
       {overlay && <div className="scene-overlay" />}
@@ -46,7 +51,7 @@ export function PledgePage() {
 
   return (
     <>
-      <Scene image="/images/cabin.jpg" className="items-end">
+      <Scene image="/images/cabin.jpg" className="items-end" parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
           <h1 className="display-headline max-w-5xl text-foreground">We make in-cab advertising, honestly.</h1>
           <p className="body-copy mt-6 max-w-2xl text-foreground/80">These are commitments to advertisers, drivers, and the passengers inside the cabs that carry our screens.</p>
@@ -77,6 +82,7 @@ export function PledgePage() {
 }
 
 export function AboutPage() {
+  const reduce = useReducedMotion();
   const values = [
     ['We act', 'Emotional'],
     ['We serve', 'People'],
@@ -88,7 +94,7 @@ export function AboutPage() {
 
   return (
     <>
-      <Scene image="/images/cabin.jpg" className="items-end">
+      <Scene image="/images/cabin.jpg" className="items-end" parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
           <h1 className="display-headline max-w-5xl text-foreground">About Korrido</h1>
           <p className="body-copy mt-6 max-w-2xl text-foreground/80">Korrido turns everyday cab rides into premium advertising space. HD screens inside city cabs. GPS-tracked impressions. No cameras.</p>
@@ -142,13 +148,20 @@ export function AboutPage() {
         <div className="flex min-h-[80dvh] w-full flex-col justify-center">
           <h2 className="section-headline text-foreground">What keeps us on track.</h2>
           <div className="mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-            {values.map(([a, b]) => (
-              <div key={a} className="bezel-card">
+            {values.map(([a, b], i) => (
+              <motion.div
+                key={a}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ ...stagger, delay: i * 0.06 }}
+                className="bezel-card"
+              >
                 <div className="bezel-card-inner flex items-baseline gap-4 p-5">
                   <span className="font-mono text-2xl font-bold text-foreground">{a}</span>
                   <span className="font-mono text-sm font-bold uppercase tracking-wide text-primary">{b}</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -158,6 +171,7 @@ export function AboutPage() {
 }
 
 export function StoryPage() {
+  const reduce = useReducedMotion();
   const milestones = [
     ['48 hours', 'From brief to live. No printing. No installation crews.'],
     ['16+ zones', 'Active across Bengaluru, from Koramangala to Whitefield.'],
@@ -167,7 +181,7 @@ export function StoryPage() {
 
   return (
     <>
-      <Scene image="/images/cabin.jpg" className="items-end">
+      <Scene image="/images/cabin.jpg" className="items-end" parallax>
         <div className="flex min-h-[80dvh] w-full flex-col justify-end pb-20">
           <h1 className="display-headline max-w-5xl text-foreground">The richest ad real estate is hurtling through the city right now.</h1>
           <p className="body-copy mt-6 max-w-2xl text-foreground/80">And nobody is using it well. Korrido was built to turn every cab ride into measurable, targeted, premium advertising space.</p>
@@ -193,7 +207,7 @@ export function StoryPage() {
         </div>
       </Scene>
 
-      <Scene image="/images/cabin.jpg" overlay>
+      <Scene image="/images/cabin.jpg" overlay parallax>
         <div className="flex min-h-[80dvh] w-full flex-col items-center justify-center text-center">
           <h2 className="display-headline max-w-5xl text-foreground">The audience is already sitting in a cab.</h2>
           <p className="body-copy mx-auto mt-6 max-w-2xl text-foreground/80">Thousands of commuters sit in city cabs for 20-30 uninterrupted minutes. The screen in their line of sight is the most valuable attention surface in the vehicle, and it was wasted.</p>
@@ -232,13 +246,20 @@ export function StoryPage() {
         <div className="flex min-h-[80dvh] w-full flex-col justify-center">
           <h2 className="section-headline text-foreground">What we have built so far.</h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {milestones.map(([stat, desc]) => (
-              <div key={stat} className="bezel-card">
+            {milestones.map(([stat, desc], i) => (
+              <motion.div
+                key={stat}
+                initial={reduce ? false : { opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ ...stagger, delay: i * 0.08 }}
+                className="bezel-card"
+              >
                 <div className="bezel-card-inner p-5">
                   <p className="font-mono text-xl font-bold uppercase tracking-wide text-foreground">{stat}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
           <Link href="/apply" className="btn-magnetic btn-primary mt-12 w-fit">

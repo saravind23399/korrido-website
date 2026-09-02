@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { ArrowRight, Banknote, Check, Edit, EyeOff, MapPin, Radio, ShieldCheck, Upload, Wrench, Zap } from './Icons';
 
 const input = 'input-elevated';
@@ -35,6 +36,7 @@ function Success({ driver }: { driver?: boolean }) {
 }
 
 export function AdvertiserApplication() {
+  const reduce = useReducedMotion();
   const [done, setDone] = useState(false);
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (event.currentTarget.reportValidity()) setDone(true); };
   const features = [
@@ -61,8 +63,15 @@ export function AdvertiserApplication() {
           <div className="flex min-h-[80dvh] w-full flex-col justify-center">
             <h2 className="section-headline text-foreground">Everything you need to run a campaign.</h2>
             <div className="mt-10 grid max-w-4xl gap-4">
-              {features.map(([Icon, title, desc]) => (
-                <div key={title} className="bezel-card">
+              {features.map(([Icon, title, desc], i) => (
+                <motion.div
+                  key={title}
+                  initial={reduce ? false : { opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1], delay: i * 0.08 }}
+                  className="bezel-card"
+                >
                   <div className="bezel-card-inner flex items-start gap-4 p-5">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-primary" style={{ background: 'color-mix(in srgb, var(--color-foreground) 4%, transparent)', border: '1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent)' }}>
                       <Icon className="h-5 w-5" />
@@ -72,7 +81,7 @@ export function AdvertiserApplication() {
                       <p className="body-copy mt-1 text-sm text-muted-foreground">{desc}</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -85,12 +94,19 @@ export function AdvertiserApplication() {
             <h2 className="section-headline text-foreground">From brief to live in four steps.</h2>
             <div className="mt-10 max-w-3xl space-y-3">
               {['You share your details, budget, and timeline.', 'We email you within the hour to verify GSTIN and business.', 'We create your account and reserve your slot with priority placement.', 'Your ad goes live in cabs. You see live impressions on the dashboard.'].map((x, i) => (
-                <div key={x} className="bezel-card">
+                <motion.div
+                  key={x}
+                  initial={reduce ? false : { opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1], delay: i * 0.1 }}
+                  className="bezel-card"
+                >
                   <div className="bezel-card-inner flex items-baseline gap-4 p-5" style={{ borderLeft: i === 0 ? '2px solid var(--color-primary)' : undefined }}>
                     <b className="font-mono text-2xl font-bold text-primary">{i + 1}</b>
                     <span className="body-copy text-sm text-muted-foreground">{x}</span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
             <p className="mt-8 flex items-center gap-2 text-xs text-muted-foreground"><ShieldCheck className="h-4 w-4 text-primary" /> GST-verified businesses preferred. Email confirmation within 1 hour.</p>
